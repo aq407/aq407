@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Aq407">
 <meta property="og:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-02T06:38:48.613Z">
+<meta property="og:updated_time" content="2019-03-02T15:53:59.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="路由器及其配置">
 <meta name="twitter:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
@@ -184,8 +184,13 @@
 <p><code>show ip version</code> 查看路由器的版本 配置寄存器的值</p>
 <p><code>show ip route</code> 查看路由表</p>
 <p><code>show ip protocal</code> 查看路由器运行的动态路由协议</p>
+<p><code>(config-if)#crc 32</code> 配置CRC的校验功能</p>
+<p><code>network ip &lt;子网号&gt; &lt;子网掩码的反码&gt; area &lt;区域号&gt;</code> 在OSPF配置模式下</p>
+<p><code>area &lt;区域号&gt; range &lt;子网地址&gt; &lt;子网掩码&gt;</code> 在路由器OSPF的配置模式下，该命令定义某一特定范围子网的聚合</p>
+<p><code>ip dhcp excluded-address</code> 配置子网时，不想要某些IP地址不参与DHCP地址分配</p>
+<p><code>lease</code> 分配IP地址的可持续租用的时间</p>
 <hr>
-
+<h2 id="HDCP"><a href="#HDCP" class="headerlink" title="HDCP"></a>HDCP</h2>
       
 
       
@@ -277,6 +282,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/03/02/交换机及其配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          交换机及其配置
+        
+      </div>
+    </a>
   
   
     <a href="/2019/03/01/我的第一篇博客文章/" id="article-nav-older" class="article-nav-link-wrap">

@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Aq407</title>
+  <title>交换机及其配置 | Aq407</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aq407">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="Cisco IOS:Switch-4507&amp;gt;enable 进入特权模式 Password:***** 输入特权模式密码 Switch-4507#configure terminal 进入全局配置 Switch-4507(config)#ip http server 启动HTTP服务   CatOS:Swith-6509&amp;gt;enable 进入配置模式 Password:***** 输入配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交换机及其配置">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/交换机及其配置/index.html">
 <meta property="og:site_name" content="Aq407">
+<meta property="og:description" content="Cisco IOS:Switch-4507&amp;gt;enable 进入特权模式 Password:***** 输入特权模式密码 Switch-4507#configure terminal 进入全局配置 Switch-4507(config)#ip http server 启动HTTP服务   CatOS:Swith-6509&amp;gt;enable 进入配置模式 Password:***** 输入配">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-04T15:59:19.363Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aq407">
+<meta name="twitter:title" content="交换机及其配置">
+<meta name="twitter:description" content="Cisco IOS:Switch-4507&amp;gt;enable 进入特权模式 Password:***** 输入特权模式密码 Switch-4507#configure terminal 进入全局配置 Switch-4507(config)#ip http server 启动HTTP服务   CatOS:Swith-6509&amp;gt;enable 进入配置模式 Password:***** 输入配">
   
     <link rel="alternative" href="/atom.xml" title="Aq407" type="application/atom+xml">
   
@@ -150,130 +154,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-交换机及其配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      交换机及其配置
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/02/交换机及其配置/" class="archive-article-date">
+
+        
+        <a href="/2019/03/02/交换机及其配置/" class="archive-article-date">
   	<time datetime="2019-03-02T15:13:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/02/交换机及其配置/">交换机及其配置</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Cisco-IOS"><a href="#Cisco-IOS" class="headerlink" title=" Cisco IOS:"></a><font color="#dd0000"> Cisco IOS:</font></h2><p><code>Switch-4507&gt;enable</code> 进入特权模式</p>
+<p><code>Password:*****</code> 输入特权模式密码</p>
+<p><code>Switch-4507#configure terminal</code> 进入全局配置</p>
+<p><code>Switch-4507(config)#ip http server</code> 启动HTTP服务</p>
+<hr>
+<h2 id="CatOS"><a href="#CatOS" class="headerlink" title=" CatOS:"></a><font color="#dd0000"> CatOS:</font></h2><p><code>Swith-6509&gt;enable</code> 进入配置模式</p>
+<p><code>Password:*****</code> 输入配置模式密码</p>
+<p><code>Swith-6509&gt;(enbale)set ip http server enable</code> 启动HTTP服务</p>
+<p><code>Swith-6509&gt;(enable)</code> </p>
+<hr>
+<h2 id="VLAN的建立与删除"><a href="#VLAN的建立与删除" class="headerlink" title="VLAN的建立与删除"></a>VLAN的建立与删除</h2><p>命令格式: <code>valn &lt;valn_ID&gt;name&lt;valn_name&gt;</code><br>例如: <code>Switch-3528-TEST(vlan)#vlan 100 name vlanwork</code> (建立VLAN 100 , 名称为vlanwork)</p>
+<p>命令格式: <code>set vlan&lt;vlan ID&gt;name&lt;vlan_name&gt;</code><br>例如：<code>Switch-6509-TEST&gt;(enable) set vlan 100 name vlan100</code> (建立VLAN 100,名称为vlan100)</p>
+<h2 id="分配交换机端口到VLAN中"><a href="#分配交换机端口到VLAN中" class="headerlink" title="分配交换机端口到VLAN中"></a>分配交换机端口到VLAN中</h2><p>命令格式：<code>switchport access vlan &lt;vlan ID&gt;</code><br>例如：<code>Switch-3528-TEST (config-if)# switchport access vlan 100</code> (将端口f0/1划分到VLAN 100中)</p>
+<p>命令格式：<code>set vlan&lt;vlan ID&gt;&lt;mod/port&gt;</code><br>例如：<code>Switch-6509-TEST&gt;(enable) set vlan 100 0/1</code> (将端口0/1划分到VLAN 100中)</p>
+<hr>
+<h2 id="VLAN-Trunk的配置"><a href="#VLAN-Trunk的配置" class="headerlink" title="VLAN Trunk的配置"></a>VLAN Trunk的配置</h2><ol>
+<li><p><code>Switch-3528-TEST (config-if)# switchport mode trunk</code></p>
+</li>
+<li><p>封装VLAN协议。<br><code>Switch-3528-TEST (config-if)# switchport trunk encapsulation dot1q</code><br>(配置VLAN Trunk的封装模式为802.1q)</p>
+</li>
+<li><p>设置允许中继的VLAN<br><code>Switch-3528-TEST (config-if)# switchport trunk allowed vlan 1,10 (1-10)</code><br>(允许VLAN 1和VLAN 10通过Trunk通路)</p>
+</li>
+</ol>
+<p><code>Switch-3528-TEST (config-if)#switchport trunk allowed vlan except 11-20</code><br>(不允许通过Trunk通路)</p>
+<hr>
+<h2 id="65系列配置VLAN-Trunk模式，封装VLAN协议"><a href="#65系列配置VLAN-Trunk模式，封装VLAN协议" class="headerlink" title="65系列配置VLAN Trunk模式，封装VLAN协议"></a>65系列配置VLAN Trunk模式，封装VLAN协议</h2><p>命令格式：set trunk&lt;mod/port&gt;<mode><type><br>例如：<code>Switch-6509-TEST&gt; (enable) set trunk 1/24 on dot1q</code></type></mode></p>
+<p>允许中继的VLAN,命令格式: <code>set trunk &lt;mod/port&gt; vlan &lt;vlan&gt;</code><br>例如：<code>Switch-6509-TEST&gt; (enable) set trunk 1/24 vlan 11-20</code></p>
+<h2 id="在端口1-24的允许VLAN的列表中添加11-20号vlan"><a href="#在端口1-24的允许VLAN的列表中添加11-20号vlan" class="headerlink" title="(在端口1/24的允许VLAN的列表中添加11~20号vlan)"></a>(在端口1/24的允许VLAN的列表中添加11~20号vlan)</h2><h2 id="VTP配置"><a href="#VTP配置" class="headerlink" title="VTP配置"></a>VTP配置</h2><p>1.配置VTP域名<br><code>Switch-3528-TEST # configure terminal</code> (进入工作模式)</p>
+<p><code>Switch-3528-TEST (config)# vtp domain TEST</code><br>(设置VTP域名为TEST，同一个域的所有交换机，必须设置相同的域名，同时VTP协议的版本号必须一致)</p>
+<p>2.配置VTP工作模式<br><code>Switch-3528-TEST(config)# vtp mode server</code><br><code>Switch-3528-TEST(config)# vtp mode client</code><br><code>Switch-3528-TEST(config)# vtp mode transparent</code></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/02/交换机及其配置/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/02/路由器及其配置/" class="archive-article-date">
-  	<time datetime="2019-03-02T05:59:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/02/路由器及其配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">路由器及其配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/02/路由器及其配置/">路由器及其配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/01/我的第一篇博客文章/" class="archive-article-date">
-  	<time datetime="2019-03-01T15:51:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/01/我的第一篇博客文章/">我的第一篇博客文章</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/01/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-01T15:48:05.137Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/01/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -296,8 +355,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
