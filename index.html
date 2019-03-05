@@ -152,6 +152,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ip地址的计算方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/05/ip地址的计算方法/">ip地址的计算方法</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/05/ip地址的计算方法/" class="archive-article-date">
+  	<time datetime="2019-03-05T13:17:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="求网络地址："><a href="#求网络地址：" class="headerlink" title="求网络地址："></a>求网络地址：</h2><p>将IP地址和子网掩码转换成二进制，进行与运算，结果转换成十进制就是网络地址</p>
+<hr>
+<h2 id="求广播地址："><a href="#求广播地址：" class="headerlink" title="求广播地址："></a>求广播地址：</h2><p>子网掩码“取反”运算，然后与网络地址进行“或”运算，得到广播地址</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/05/ip地址的计算方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-交换机及其配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -280,7 +345,15 @@
 <p><code>ip dhcp excluded-address</code> 配置子网时，不想要某些IP地址不参与DHCP地址分配</p>
 <p><code>lease</code> 分配IP地址的可持续租用的时间</p>
 <hr>
-<h2 id="HDCP"><a href="#HDCP" class="headerlink" title="HDCP"></a>HDCP</h2>
+<h2 id="路由器pos接口配置"><a href="#路由器pos接口配置" class="headerlink" title="路由器pos接口配置"></a>路由器pos接口配置</h2><p>1.设置pos物理端口的帧类型（sdh或sonet）<br>2.设置pos物理端口的协议封装模式（ppp或chdlc）<br>3.设置pos物理端口的数据帧格式的flag值（0表示SONET帧，2表示SDH帧)(pos framing)<br>4.设置POS物理端口数据帧的CRC校验位数（16位或32位）</p>
+<p><code>#bandwidth</code> + 带宽(单位为kbps，换算为1000)</p>
+<hr>
+<h2 id="动态路由协议OSPF配置-一般与pos接口一起考察"><a href="#动态路由协议OSPF配置-一般与pos接口一起考察" class="headerlink" title="动态路由协议OSPF配置(一般与pos接口一起考察)"></a>动态路由协议OSPF配置(一般与pos接口一起考察)</h2><p>1.network ：该命令用来定义与OSPF的子网地址，格式为:<br><code>network &lt;子网号&gt;&lt;子网掩码的反码&gt;area&lt;区域号&gt;</code></p>
+<p>2.range：该命令用于定义某一特定范围子网的聚合，格式为:<br><code>area&lt;区域号&gt;range&lt;子网地址&gt;&lt;子网掩码&gt;</code></p>
+<hr>
+<h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><p>静态路由是在全局配置模式下使用”ip route”命令配置。格式为:<br><code>route&lt;目的网络地址&gt;&lt;子网掩码&gt;&lt;下一跳路由器的IP地址&gt;</code></p>
+<p>默认路由的静态配置方式为:<br><code>ip route 0.0.0.0 0.0.0.0 下一跳路由的ip地址</code></p>
+<h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2>
       
 
       
