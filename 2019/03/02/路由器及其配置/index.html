@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Aq407">
 <meta property="og:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-05T15:57:17.567Z">
+<meta property="og:updated_time" content="2019-03-08T16:58:24.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="路由器及其配置">
 <meta name="twitter:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
@@ -198,7 +198,11 @@
 <hr>
 <h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><p>静态路由是在全局配置模式下使用”ip route”命令配置。格式为:<br><code>route&lt;目的网络地址&gt;&lt;子网掩码&gt;&lt;下一跳路由器的IP地址&gt;</code></p>
 <p>默认路由的静态配置方式为:<br><code>ip route 0.0.0.0 0.0.0.0 下一跳路由的ip地址</code></p>
-<h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2>
+<h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2><p>DHCP DISCOVER发现报文，一广播发送该消息，并且将源ip地址设置为0.0.0.0<br>目的地址设置为255.255.255.255</p>
+<p>DHCP OFFER 提供报文 源地址是服务的ip地址 目的ip地址255.255.255.255</p>
+<p>DHCP REQUEST 请求报文 和发现报文的IP地址和目地地址一样</p>
+<p>DHCP ACK  确定报文 和提供报文的源地址和目的地址一样</p>
+
       
 
       
