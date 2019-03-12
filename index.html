@@ -152,6 +152,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-计算机三级网络技术选择题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/计算机三级网络技术选择题/">计算机三级网络技术选择题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/10/计算机三级网络技术选择题/" class="archive-article-date">
+  	<time datetime="2019-03-10T07:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RPR"><a href="#RPR" class="headerlink" title="RPR"></a>RPR</h2><p>1.RPR环中每一个节点都执行SRP公平算法<br>2.RPR将沿逆时针传输的光纤叫做内环<br>3.RPR环能够在50ms内实现治愈</p>
+<h2 id="接入技术特征"><a href="#接入技术特征" class="headerlink" title="接入技术特征"></a>接入技术特征</h2><p>1.Ad hoc是一种无线接入技术<br>2.光纤传输系统的中继距离可达100km一上<br>3.ADSL技术具有非对称带宽特性</p>
+<h2 id="宽带城域网技术"><a href="#宽带城域网技术" class="headerlink" title="宽带城域网技术"></a>宽带城域网技术</h2><p>1.网络业务包括多媒体、数据与语音业务<br>2.网络服务质量表现在延时、抖动、吞吐量与丢包率<br>3.网络服务质量保障技术主要有RSVP、DiffServ与MPLS<br>4.宽带城域网对汇集层及其以上设备采取外带管理，而对汇聚层以下采用袋内管理</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/10/计算机三级网络技术选择题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ip地址的计算方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -350,6 +415,8 @@
 <hr>
 <h2 id="动态路由协议OSPF配置-一般与pos接口一起考察"><a href="#动态路由协议OSPF配置-一般与pos接口一起考察" class="headerlink" title="动态路由协议OSPF配置(一般与pos接口一起考察)"></a>动态路由协议OSPF配置(一般与pos接口一起考察)</h2><p>1.network ：该命令用来定义与OSPF的子网地址，格式为:<br><code>network &lt;子网号&gt;&lt;子网掩码的反码&gt;area&lt;区域号&gt;</code></p>
 <p>2.range：该命令用于定义某一特定范围子网的聚合，格式为:<br><code>area&lt;区域号&gt;range&lt;子网地址&gt;&lt;子网掩码&gt;</code></p>
+<p>3.no shutdown (打开端口)</p>
+<p>4.async <font color="#dd0000"> default ip address </font>异步串行接口</p>
 <hr>
 <h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><p>静态路由是在全局配置模式下使用”ip route”命令配置。格式为:<br><code>route&lt;目的网络地址&gt;&lt;子网掩码&gt;&lt;下一跳路由器的IP地址&gt;</code></p>
 <p>默认路由的静态配置方式为:<br><code>ip route 0.0.0.0 0.0.0.0 下一跳路由的ip地址</code></p>
@@ -357,6 +424,24 @@
 <p>DHCP OFFER 提供报文 源地址是服务的ip地址 目的ip地址255.255.255.255</p>
 <p>DHCP REQUEST 请求报文 和发现报文的IP地址和目地地址一样</p>
 <p>DHCP ACK  确定报文 和提供报文的源地址和目的地址一样</p>
+<p>protocol 协议</p>
+<p>Source address 源地址</p>
+<p>Destination address 目的地址</p>
+<p>relay agent 中继代理</p>
+<h2 id="ip地址池的建立："><a href="#ip地址池的建立：" class="headerlink" title="ip地址池的建立："></a>ip地址池的建立：</h2><p>全局配置模式下使用：<code>ip dhcp pool&lt;name&gt;</code>命令为地址池赋予一个名称</p>
+<h2 id="ip地址池的子网地址和子网掩码"><a href="#ip地址池的子网地址和子网掩码" class="headerlink" title="ip地址池的子网地址和子网掩码"></a>ip地址池的子网地址和子网掩码</h2><p>配置方法是在ip地址池配置模式下，执行<code>network &lt;网络地址&gt;&lt;子网掩码&gt;</code>命令</p>
+<h2 id="排除不用动态分配的IP地址："><a href="#排除不用动态分配的IP地址：" class="headerlink" title="排除不用动态分配的IP地址："></a>排除不用动态分配的IP地址：</h2><p>全局模式下，使用<code>ip dhcp excluded-address low-address [high-address]</code>命令</p>
+<h2 id="配置默认网关"><a href="#配置默认网关" class="headerlink" title="配置默认网关:"></a>配置默认网关:</h2><p>地址池配置模式下，执行<code>default-router address [addressz...address8]</code>命令为地址池赋予一个名称</p>
+<h2 id="DHCP地址续约"><a href="#DHCP地址续约" class="headerlink" title="DHCP地址续约"></a>DHCP地址续约</h2><p>地址续约当中涉及两种报文类型，即reques和ack报文。</p>
+<p>1.DHCP request报文是有客户机向服务器发送请求，告诉服务器需要续约的地址，其源地址<br>为客户机地址，目的地址为服务器地址</p>
+<p>2.DHCP ack报文是服务器向客户机发送确认，告诉客户机同意续约ip地址,</p>
+<font color="#dd0000"> 其源地址为服务器地址，目的地址为客户机地址 </font>
+
+
+<h2 id="思科35系列"><a href="#思科35系列" class="headerlink" title="思科35系列"></a>思科35系列</h2><p><code>Switch-3528-TEST(config)# interface VLAN1</code> VLAN1 是用于设备管理的默认VLAN<br><code>Switch-3528-TEST(config-if)#ip address &lt;管理地址&gt;&lt;子网掩码&gt;</code><br><code>Switch-3528-TEST(config-if)#ip default-gateway&lt;默认网关地址&gt;</code></p>
+<h2 id="思科65系列"><a href="#思科65系列" class="headerlink" title="思科65系列"></a>思科65系列</h2><p>命令格式:<code>set interface sc0&lt;管理地址&gt;&lt;子网掩码&gt;&lt;直接广播地址&gt;</code></p>
+<p>默认(缺省)路由设置:<br>Switch-3528-TEST&gt;(enable)set ip route 0.0.0.0&gt;&lt;默认网关地址&gt;</p>
+<h2 id="路由表出题点："><a href="#路由表出题点：" class="headerlink" title="路由表出题点："></a>路由表出题点：</h2><p>1.connected+端口名(如果是三层交换机，则+虚拟局域网号vlan)<br>2.via+目的网络(IP地址)<br>3.管理距离值(o-110; S-1; B-200)</p>
 
       
 
