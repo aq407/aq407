@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Aq407">
 <meta property="og:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-12T16:56:30.709Z">
+<meta property="og:updated_time" content="2019-03-16T06:20:39.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="路由器及其配置">
 <meta name="twitter:description" content="路由器协议管理距离 直接连接:0静态链接:1外部 BGP:20内部 EIGRP:90IGRP:100OSPF:110RIP:120外部EIGRP:170内部BGP:200未知:255   路由器配置常用命令 Router#write memory 保存到路由器的 NVRAM中 Router#write network tftp 保存到tftp服务器中 Router#write erase 删除路">
@@ -200,7 +200,7 @@
 <hr>
 <h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><p>静态路由是在全局配置模式下使用”ip route”命令配置。格式为:<br><code>route&lt;目的网络地址&gt;&lt;子网掩码&gt;&lt;下一跳路由器的IP地址&gt;</code></p>
 <p>默认路由的静态配置方式为:<br><code>ip route 0.0.0.0 0.0.0.0 下一跳路由的ip地址</code></p>
-<h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2><p>DHCP DISCOVER发现报文，一广播发送该消息，并且将源ip地址设置为0.0.0.0<br>目的地址设置为255.255.255.255</p>
+<h2 id="访问控制列表"><a href="#访问控制列表" class="headerlink" title="访问控制列表"></a>访问控制列表</h2><h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2><p>DHCP DISCOVER发现报文，一广播发送该消息，并且将源ip地址设置为0.0.0.0<br>目的地址设置为255.255.255.255</p>
 <p>DHCP OFFER 提供报文 源地址是服务的ip地址 目的ip地址255.255.255.255</p>
 <p>DHCP REQUEST 请求报文 和发现报文的IP地址和目地地址一样</p>
 <p>DHCP ACK  确定报文 和提供报文的源地址和目的地址一样</p>
@@ -208,7 +208,11 @@
 <p>Source address 源地址</p>
 <p>Destination address 目的地址</p>
 <p>relay agent 中继代理</p>
-<h2 id="ip地址池的建立："><a href="#ip地址池的建立：" class="headerlink" title="ip地址池的建立："></a>ip地址池的建立：</h2><p>全局配置模式下使用：<code>ip dhcp pool&lt;name&gt;</code>命令为地址池赋予一个名称</p>
+<p>Physical Address 物理地址</p>
+<p>client hardware address 客户端硬件地址(物理地址)</p>
+<p>Client address 客户地址</p>
+<p>dhcp Enabled 启动DHCP (yes)</p>
+<h2 id="ip地址池的建立：-16套"><a href="#ip地址池的建立：-16套" class="headerlink" title="ip地址池的建立：(16套)"></a>ip地址池的建立：(16套)</h2><p>全局配置模式下使用：<code>ip dhcp pool&lt;name&gt;</code>命令为地址池赋予一个名称</p>
 <h2 id="ip地址池的子网地址和子网掩码"><a href="#ip地址池的子网地址和子网掩码" class="headerlink" title="ip地址池的子网地址和子网掩码"></a>ip地址池的子网地址和子网掩码</h2><p>配置方法是在ip地址池配置模式下，执行<code>network &lt;网络地址&gt;&lt;子网掩码&gt;</code>命令</p>
 <h2 id="排除不用动态分配的IP地址："><a href="#排除不用动态分配的IP地址：" class="headerlink" title="排除不用动态分配的IP地址："></a>排除不用动态分配的IP地址：</h2><p>全局模式下，使用<code>ip dhcp excluded-address low-address [high-address]</code>命令</p>
 <h2 id="配置默认网关"><a href="#配置默认网关" class="headerlink" title="配置默认网关:"></a>配置默认网关:</h2><p>地址池配置模式下，执行<code>default-router address [addressz...address8]</code>命令为地址池赋予一个名称</p>
