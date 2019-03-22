@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ip路由聚合与子网划分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/ip路由聚合与子网划分/">ip路由聚合与子网划分</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/17/ip路由聚合与子网划分/" class="archive-article-date">
+  	<time datetime="2019-03-16T16:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="CIDR地址规划"><a href="#CIDR地址规划" class="headerlink" title="CIDR地址规划"></a>CIDR地址规划</h2><p>使用各种长度的“网络前缀” 来代替分类地址中的网络号和子网号，采用”最大前缀匹配法”<br>计算此目的地址的网络</p>
+<p><font color="#dd0000"> IP地址::={&lt;网络前缀&gt;，&lt;主机号&gt;}</font></p>
+<p>使用“斜线记法”，又称CIDR记法</p>
+<p>一个CIDR地址块可以表示很多地址，所以在路由表中就是利用CIDR地址块来查找目的网络，这种地址的聚合常称为路由聚合，也称为构成超网</p>
+<h2 id="IP地址聚合"><a href="#IP地址聚合" class="headerlink" title="IP地址聚合"></a>IP地址聚合</h2><p>子网掩码:保留主机为不能全为1和0</p>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p>可用ip地址的计算: 2^主机位-2<br>子网掩码的划分: 2^x &gt;=子网可容纳主机数+2 即主机位为X，网络位=32-x</p>
+<p>可以ip地址段划分:第一个可以IP地址:网络地址+1，最后一个:直接广播地址-1</p>
+<h2 id="防火墙安装与配置"><a href="#防火墙安装与配置" class="headerlink" title="防火墙安装与配置"></a>防火墙安装与配置</h2><p>串接一种设备能建通路由器之间的流量，写TAP<br>问串接一种设备能提供安全保护，一般是IPS<br>问防火墙访问外网设置，分别填nat和global<br>要求允许内网FTP向外网提供服务的命令时:fixup<br>若需要为内网的一个服务器配置一个公网IP地址:static</p>
+<p>-</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/17/ip路由聚合与子网划分/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-微信小程序教程笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -240,8 +311,10 @@
 <h2 id="Tracert命令"><a href="#Tracert命令" class="headerlink" title="Tracert命令"></a>Tracert命令</h2><p>功能：通过发送包含 不同TTL的ICMP报文并监听回应报文，  来检测到达目的的<br>计算机的路径，主要是跟踪通往给定目的地的路由器列表</p>
 <p>Source Address 源ip地址<br>Dest Address 目的地址</p>
 <p>有<code>Time-to-live</code>使用的是Tracert命令</p>
-<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>第一次:客户机发送SYN=1，随机产生seq=x的数据包发送给服务器<br>第二次:服务器接收到请求，确认请求，向客户机发送ack=x+1，随机产生seq=y，ACK=1,SYN=1的数据包<br>第三次:接收到数据并检查是否正确，如果ack正确则，向服务器发送ACK=1,seq=x+1,ack=y+1的数据包</p>
+<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>第一次:客户机发送SYN=1，随机产生seq=x的数据包发送给服务器<br>第二次:服务器接收到请求，确认请求，向客户机发送ack=x+1（z），随机产生seq=y，ACK=1,SYN=1的数据包<br>第三次:接收到数据并检查是否正确，如果ack正确则，向服务器发送ACK=1,seq=z+1,ack=y+1的数据包</p>
+<p><img src="https://github.com/aq407/aq407.github.io/blob/master/img/tcp3.PNG?raw=true" alt="tcp三次握手"></p>
 <p>TCP三次握手过程，结束标志为TCP握手结束的那一条报文编号</p>
+<p>Protoool 协议<br>Destination address 目的地地址<br>本机所在子网可能容纳的主机数最多是126<br>该主机上配置的子网掩码最大长度是: 主机地址和相同位段的ip聚合</p>
 <h2 id="FTP命令"><a href="#FTP命令" class="headerlink" title="FTP命令"></a>FTP命令</h2><p>如果报文内容出现FTP则是使用FTP命令，负责将、电脑上的数据与服务器数据进行交换。</p>
 
       
