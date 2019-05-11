@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Aq407</title>
+  <title>Archives: 2019/5 | Aq407</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Aq407">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2019/05/index.html">
 <meta property="og:site_name" content="Aq407">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -152,845 +152,101 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-python爬虫-Beautiful-Soup库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/11/python爬虫-Beautiful-Soup库/">python爬虫-Beautiful Soup库</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/11/python爬虫-Beautiful-Soup库/" class="archive-article-date">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/05/11/python爬虫-Beautiful-Soup库/" class="archive-article-date">
   	<time datetime="2019-05-11T06:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-11</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Beautiful Soup库是解析、遍历、维护“标签树”的功能库</p>
-<h2 id="Beautiful-Soup库的导入"><a href="#Beautiful-Soup库的导入" class="headerlink" title="Beautiful Soup库的导入"></a>Beautiful Soup库的导入</h2><p><code>from bs4 import BeautifulSoup</code></p>
-<h2 id="获取title的方法"><a href="#获取title的方法" class="headerlink" title="获取title的方法"></a>获取title的方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,&quot;html.parser&quot;) #html.parser是html解析器</span><br><span class="line">soup.title</span><br></pre></td></tr></table></figure>
-<h2 id="获取中的内容"><a href="#获取中的内容" class="headerlink" title="获取中的内容"></a>获取<a>中的内容</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">soup.a #只能获取第一个a标签内容</span><br><span class="line"></span><br><span class="line">soup.a.name #a标签的名字</span><br><span class="line">soup.a.parent.name #a标签的父级标签</span><br></pre></td></tr></table></figure>
-<h2 id="获取标签的属性"><a href="#获取标签的属性" class="headerlink" title="获取标签的属性"></a>获取标签的属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">tag = soup.a</span><br><span class="line">tag.attrs #以字典的形式返回</span><br><span class="line"></span><br><span class="line">tag.attrs[&apos;href&apos;] #获取a标签的链接属性</span><br><span class="line"></span><br><span class="line">tag.string #获取a标签包含的内容信息</span><br></pre></td></tr></table></figure>
-<h2 id="基于bs4库的HTML内容遍历方法"><a href="#基于bs4库的HTML内容遍历方法" class="headerlink" title="基于bs4库的HTML内容遍历方法"></a>基于bs4库的HTML内容遍历方法</h2><p>标签树的下行遍历:</p>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.contents</td>
-<td style="text-align:center">子节点的列表，将<tag>所有儿子节点存入列表</tag></td>
-</tr>
-<tr>
-<td>.childern</td>
-<td style="text-align:center">子节点的迭代类型,与contents类似，用于循环遍历儿子节点</td>
-</tr>
-<tr>
-<td>.descendants</td>
-<td style="text-align:center">子孙节点的迭代类型，包含所有子孙节点，用于遍历循环</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">遍历子节点</span><br><span class="line">for child in soup.body.childern:</span><br><span class="line">	print(child)</span><br></pre></td></tr></table></figure>
-<h2 id="标签树的上行遍历"><a href="#标签树的上行遍历" class="headerlink" title="标签树的上行遍历"></a>标签树的上行遍历</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.parent</td>
-<td style="text-align:center">节点的父标签</td>
-</tr>
-<tr>
-<td>.parents</td>
-<td style="text-align:center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
-</tr>
-</tbody>
-</table>
-<h2 id="标签树的平行遍历"><a href="#标签树的平行遍历" class="headerlink" title="标签树的平行遍历"></a>标签树的平行遍历</h2><table>
-<thead>
-<tr>
-<th>属性</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.next_sibling</td>
-<td style="text-align:center">返回按照HTML文本顺序的下一个平行节点标签</td>
-</tr>
-<tr>
-<td>.previous_sibling</td>
-<td style="text-align:center">返回按照HTML文本顺序的上一个平行节点标签</td>
-</tr>
-<tr>
-<td>.next_siblings</td>
-<td style="text-align:center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
-</tr>
-<tr>
-<td>.previous_siblings</td>
-<td style="text-align:center">迭代类型，返回按照HTML文本顺序的前续所有平台节点标签</td>
-</tr>
-</tbody>
-</table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/11/python爬虫-Beautiful-Soup库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python爬虫-requests" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/09/python爬虫-requests/">python爬虫--requests</a>
+      <a class="archive-article-title" href="/2019/05/11/python爬虫-Beautiful-Soup库/">python爬虫-Beautiful Soup库</a>
     </h1>
   
 
-        
-        <a href="/2019/05/09/python爬虫-requests/" class="archive-article-date">
+        <div class="article-info info-on-right">
+          
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/05/09/python爬虫-requests/" class="archive-article-date">
   	<time datetime="2019-05-09T14:25:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-09</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="requests语法"><a href="#requests语法" class="headerlink" title="requests语法"></a>requests语法</h2><p>requests.get(url,params=Mpme,<strong>kwargs)<br>url:拟获取页面的url连接<br>params：url中的额外参数，字典或字节流格式，可选
-</strong>kwargs:12个控制访问的参数</p>
-<p>例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">r = requests.get(&quot;http://www.baidu.com&quot;)</span><br><span class="line">print(r.status_code)#r.status_code是HTTP请求的返回状态，200表示连接，其他失败</span><br><span class="line">print(&quot;\n&quot;)</span><br><span class="line">print(r.text)</span><br><span class="line">print(r.encoding) #从HTTP header中猜测的响应内容编码方式，如果header中不存在charset则默认ISO-8859-1</span><br><span class="line">print(r.apparent_encoding) #从内容中分析出的响应内容编码方式,根据网页内容分析出的编码方式</span><br><span class="line"></span><br><span class="line">r.encoding = &apos;utf-8&apos;</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure></p>
-<h2 id="requests库的异常"><a href="#requests库的异常" class="headerlink" title="requests库的异常"></a>requests库的异常</h2><p>requests.ConnectionError:网络连接错误异常,入DNS查询失败，拒绝连接等<br>requests.HTTPError:HTTP错误异常<br>requests.URL.Required:URL缺失异常<br>Required.TooManyRedirects:超过最大重定向次数，产生重定向异常<br>requests.ConnectionTimeout:连接远程服务器超时异常<br>requests.Timeout:请求url超时，产生超时异常</p>
-<p>r.raise_for_status():如果不是200,产生异常 requests.HTTPError</p>
-<h2 id="爬取网页的通用代码框架"><a href="#爬取网页的通用代码框架" class="headerlink" title="爬取网页的通用代码框架"></a>爬取网页的通用代码框架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def getHTMLText(url):</span><br><span class="line">	try:</span><br><span class="line">		r = requests.get(url,timeout=30)</span><br><span class="line">		r.raise_for_status();#如果状态不是200引发HTTPError异常</span><br><span class="line">		r.encoding = r.apparent_encoding</span><br><span class="line">		return r.text</span><br><span class="line">	except:</span><br><span class="line">		return &quot;产生异常&quot;</span><br><span class="line">		</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">	url = &quot;http://www.baidu.com&quot;</span><br><span class="line">	print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
-<h2 id="HTTP协议及Requests库方法"><a href="#HTTP协议及Requests库方法" class="headerlink" title="HTTP协议及Requests库方法"></a>HTTP协议及Requests库方法</h2><p>HTTP协议：<br>         URL格式 <a href="http://host[:port][path]" target="_blank" rel="noopener">http://host[:port][path]</a><br>         host:合法的Internet主机域名或ip地址<br>         port:端口号，缺省端口为80<br>         path：请求资源的路径</p>
-<h2 id="HTTP协议对资源的操作"><a href="#HTTP协议对资源的操作" class="headerlink" title="HTTP协议对资源的操作"></a>HTTP协议对资源的操作</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td style="text-align:center">请求获取url位置的资源</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td style="text-align:center">请求获取URL位置资源的响应信息报告，即获得该资源的头部信息</td>
-</tr>
-<tr>
-<td>POST</td>
-<td style="text-align:center">请求URL位置的资源后附加的新的数据</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td style="text-align:center">请求向URL未知存储一个资源，覆盖元URL位置的资源</td>
-</tr>
-<tr>
-<td>PATCH</td>
-<td style="text-align:center">请求局部更新URL位置的资源，即改变该处资源的部分内容</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td style="text-align:center">请求删除URL位置存储的资源</td>
-</tr>
-</tbody>
-</table>
-<h2 id="HTTP协议与Requests库"><a href="#HTTP协议与Requests库" class="headerlink" title="HTTP协议与Requests库"></a>HTTP协议与Requests库</h2><table>
-<thead>
-<tr>
-<th>HTTP协议方法</th>
-<th style="text-align:center">Requests库方法</th>
-<th style="text-align:right">功能一致性</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td style="text-align:center">requests.get()</td>
-<td style="text-align:right">一致</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td style="text-align:center">requests.head()</td>
-<td style="text-align:right">一致</td>
-</tr>
-<tr>
-<td>POST</td>
-<td style="text-align:center">requests.post()</td>
-<td style="text-align:right">一致</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td style="text-align:center">requests.put()</td>
-<td style="text-align:right">一致</td>
-</tr>
-<tr>
-<td>PATCH</td>
-<td style="text-align:center">requests.patch()</td>
-<td style="text-align:right">一致</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td style="text-align:center">requests.delete()</td>
-<td style="text-align:right">一致</td>
-</tr>
-</tbody>
-</table>
-<h2 id="实例网络图片爬取和存储"><a href="#实例网络图片爬取和存储" class="headerlink" title="实例网络图片爬取和存储"></a>实例网络图片爬取和存储</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import os #os 模块提供了非常丰富的方法用来处理文件和目录</span><br><span class="line">url = &quot;https://cdn.pixabay.com/photo/2019/03/08/21/13/record-4043223_960_720.jpg&quot;</span><br><span class="line">root = &quot;D://pices//&quot;</span><br><span class="line">path = root + url.split(&apos;/&apos;)[-1] #以/为分割符保留最后一段</span><br><span class="line">try:</span><br><span class="line">	if not os.path.exists(root):</span><br><span class="line">		os.mkdir(root)</span><br><span class="line">	if not os.path.exists(path):</span><br><span class="line">		r = requests.get(url)</span><br><span class="line">		with open(path,&apos;wb&apos;) as f:</span><br><span class="line">		f.write(r.content)</span><br><span class="line">		f.close()</span><br><span class="line">		print(&quot;文件保存成功&quot;)</span><br><span class="line">	else:</span><br><span class="line">		print(&quot;文件已存在&quot;)</span><br><span class="line">except:</span><br><span class="line">	print(&quot;爬取失败&quot;)</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/09/python爬虫-requests/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-ee之session和cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/04/java-ee之session和cookies/">java-ee之session和cookies</a>
+      <a class="archive-article-title" href="/2019/05/09/python爬虫-requests/">python爬虫--requests</a>
     </h1>
   
 
-        
-        <a href="/2019/05/04/java-ee之session和cookies/" class="archive-article-date">
+        <div class="article-info info-on-right">
+          
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/05/04/java-ee之session和cookies/" class="archive-article-date">
   	<time datetime="2019-05-03T16:15:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/java-ee之session和cookies/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-ee-之JSP的构成" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/17/java-ee-之JSP的构成/">java ee 之声明</a>
+      <a class="archive-article-title" href="/2019/05/04/java-ee之session和cookies/">java-ee之session和cookies</a>
     </h1>
   
 
-        
-        <a href="/2019/04/17/java-ee-之JSP的构成/" class="archive-article-date">
-  	<time datetime="2019-04-17T15:24:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>&lt;%<br> //局部变量<br> //可写java代码</p>
-<p>%&gt;</p>
-<p>&lt;%!<br> //声明<br> //全局变量<br> //可写Java变量<br> //不可以使用内建对象(out.print)<br>%&gt;</p>
-<p>&lt;%=<br>//表达式，不用结束符号;<br>%&gt;</p>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>1.HTML注释<!-- --> 只能注释html的标签</p>
-<p>2.java的注释 多行/<em> </em>/，单行//</p>
-<p>3.jsp注释:&lt;%– –%&gt; 不会传送到客户端，节省流量，提高安全性</p>
-<h2 id="静态包含"><a href="#静态包含" class="headerlink" title="静态包含"></a>静态包含</h2><p>&lt;%@include file = “header.jsp”%&gt;</p>
-<p>时机:翻译jsp—java<br>需要包含翻译，编译<br>不允许同名变量</p>
-<h2 id="动态包含"><a href="#动态包含" class="headerlink" title="动态包含"></a>动态包含</h2><p>&lt;jsp:include page = “footer.jsp”&gt;&lt;/jsp:include&gt;</p>
-<p>时机:运行 class……<br>不需要编译<br>允许同名变量</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/17/java-ee-之JSP的构成/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-PHP与数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/14/PHP与数据库/">PHP与数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/14/PHP与数据库/" class="archive-article-date">
-  	<time datetime="2019-04-14T15:46:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="PHP连接数据库"><a href="#PHP连接数据库" class="headerlink" title="PHP连接数据库"></a>PHP连接数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$dbhost = &apos;127.0.0.1&apos;; //服务器地址</span><br><span class="line">$dbuser = &apos;root&apos;; //数据库账号</span><br><span class="line">$dbpass = &apos;&apos;; //数据库密码</span><br><span class="line">$CREATR DATABASE student //创建数据库</span><br><span class="line">$dbname = &apos;student&apos;; //数据库名称</span><br><span class="line">$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname) or die(&quot;提示：数据库连接失败！&quot;);</span><br><span class="line">mysqli_set_charset($conn,&apos;utf8&apos;); //指定编码</span><br></pre></td></tr></table></figure>
-<h2 id="插入数据-增"><a href="#插入数据-增" class="headerlink" title="插入数据(增)"></a>插入数据(增)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;INSERT INTO pepo (ID, name, age,sex,city)</span><br><span class="line">VALUES (1, &apos;mengmeng&apos;, 33,&apos;男&apos;,&apos;北京&apos;)&quot;; //插入的数据</span><br></pre></td></tr></table></figure>
-<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;delete from pepo where id = $id&quot;;//pepo数据表，id = $id删除条件</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/14/PHP与数据库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-EE之servlet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/31/java-EE之servlet/">java EE之servlet</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/31/java-EE之servlet/" class="archive-article-date">
-  	<time datetime="2019-03-31T13:47:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习路径:Servlet -&gt; JSP -&gt; Spring -&gt; 组合框架</p>
-<h2 id="一、servlet简介"><a href="#一、servlet简介" class="headerlink" title="一、servlet简介"></a>一、servlet简介</h2><ul>
-<li><p>Servlet 本身不能独立运行，需要在一个web应用中运行的而一个web运用是部署在tomact中的</p>
-</li>
-<li><p>使用 Servlet，可以收集来自网页表单的用户输入并处理，呈现来自数据库或者其他源的记录，即与用户交互。</p>
-</li>
-<li><p>Servlet 可以动态地生成网页</p>
-</li>
-<li><p>Servlet 是学习 JSP 的基础。</p>
-</li>
-</ul>
-<h2 id="二、创建项目"><a href="#二、创建项目" class="headerlink" title="二、创建项目"></a>二、创建项目</h2><p>打开ide，File-&gt;New-&gt;Project,并勾选 Web Application，点击 next</p>
-<h2 id="三、导入必须的servlet-api-jar包"><a href="#三、导入必须的servlet-api-jar包" class="headerlink" title="三、导入必须的servlet-api.jar包"></a>三、导入必须的servlet-api.jar包</h2><p>开发 Servlet 需要用到 servlet-api.jar 这个包里的相关类。</p>
-<p>IDEA 中配置好 tomcat 后这个包是自动导入的，如果没有，可以在左侧点击 External Libraries -&gt; Tomcat，在 servlet-api 上右键，选择 Add as Library 即可。</p>
-<h2 id="编写html页面"><a href="#编写html页面" class="headerlink" title="编写html页面"></a>编写html页面</h2><p>在web目录下新建html文件：</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/31/java-EE之servlet/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ip路由聚合与子网划分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/ip路由聚合与子网划分/">ip路由聚合与子网划分</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/17/ip路由聚合与子网划分/" class="archive-article-date">
-  	<time datetime="2019-03-16T16:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="CIDR地址规划"><a href="#CIDR地址规划" class="headerlink" title="CIDR地址规划"></a>CIDR地址规划</h2><p>使用各种长度的“网络前缀” 来代替分类地址中的网络号和子网号，采用”最大前缀匹配法”<br>计算此目的地址的网络</p>
-<p><font color="#dd0000"> IP地址::={&lt;网络前缀&gt;，&lt;主机号&gt;}</font></p>
-<p>使用“斜线记法”，又称CIDR记法</p>
-<p>一个CIDR地址块可以表示很多地址，所以在路由表中就是利用CIDR地址块来查找目的网络，这种地址的聚合常称为路由聚合，也称为构成超网</p>
-<h2 id="IP地址聚合"><a href="#IP地址聚合" class="headerlink" title="IP地址聚合"></a>IP地址聚合</h2><p>子网掩码:保留主机为不能全为1和0</p>
-<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p>可用ip地址的计算: 2^主机位-2<br>子网掩码的划分: 2^x &gt;=子网可容纳主机数+2 即主机位为X，网络位=32-x</p>
-<p>可以ip地址段划分:第一个:网络地址+1，最后一位：将第一个ip地址的主机位置一</p>
-<h2 id="防火墙安装与配置"><a href="#防火墙安装与配置" class="headerlink" title="防火墙安装与配置"></a>防火墙安装与配置</h2><p>串接一种设备能建通路由器之间的流量，写TAP<br>问串接一种设备能提供安全保护，一般是IPS<br>问防火墙访问外网设置，分别填nat和global<br>要求允许内网FTP向外网提供服务的命令时:fixup<br>若需要为内网的一个服务器配置一个公网IP地址:static</p>
-<p>-</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/17/ip路由聚合与子网划分/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-微信小程序教程笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/微信小程序教程笔记/">微信小程序教程笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/微信小程序教程笔记/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="小程序代码结构与基本配置"><a href="#小程序代码结构与基本配置" class="headerlink" title="小程序代码结构与基本配置"></a>小程序代码结构与基本配置</h2><p>1.app.js 注册微信小程序应用</p>
-<p>2.app.json 微信小程序的全局配置</p>
-<p>3.app.wxss 设置微信小程序全局的样式</p>
-<p>4.project.config.json 开发工具配置文件</p>
-<p>5.pages 存放我微信小程序所有页面,(每个小程序页面最多由四个文件组成){</p>
-<p>.js文件处理页面的逻辑和数据交互<br>.json文件配置页面信息<br>.wxml展示页面的元素和内容<br>.wxss文件设置页面元素的样式<br>}</p>
-<p>6.utils</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/微信小程序教程笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Sniffer抓包分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/Sniffer抓包分析/">Sniffer抓包分析</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/13/Sniffer抓包分析/" class="archive-article-date">
-  	<time datetime="2019-03-13T15:49:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##　ping命令</p>
-<p>功能：通过发送ICMP报文，监听回应报文，从而检查与远程或本地计算机的<br>连接，主要测试一个给定的目的是否可达。<font color="#dd0000"> 默认发送4个ICMP报文<br>每个报文包含64个字节数据。</font></p>
-<p>有<code>ICMP:Echo</code>是使用ping命令</p>
-<h2 id="Tracert命令"><a href="#Tracert命令" class="headerlink" title="Tracert命令"></a>Tracert命令</h2><p>功能：通过发送包含 不同TTL的ICMP报文并监听回应报文，  来检测到达目的的<br>计算机的路径，主要是跟踪通往给定目的地的路由器列表</p>
-<p>Source Address 源ip地址<br>Dest Address 目的地址</p>
-<p>有<code>Time-to-live</code>使用的是Tracert命令</p>
-<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>第一次:客户机发送SYN=1，随机产生seq=x的数据包发送给服务器<br>第二次:服务器接收到请求，确认请求，向客户机发送ack=x+1（z），随机产生seq=y，ACK=1,SYN=1的数据包<br>第三次:接收到数据并检查是否正确，如果ack正确则，向服务器发送ACK=1,seq=z+1,ack=y+1的数据包</p>
-<p><img src="https://github.com/aq407/aq407.github.io/blob/master/img/tcp3.PNG?raw=true" alt="tcp三次握手"></p>
-<p>TCP三次握手过程，结束标志为TCP握手结束的那一条报文编号</p>
-<p>Protoool 协议<br>Destination address 目的地地址<br>本机所在子网可能容纳的主机数最多是126<br>该主机上配置的子网掩码最大长度是: 主机地址和相同位段的ip聚合</p>
-<h2 id="FTP命令"><a href="#FTP命令" class="headerlink" title="FTP命令"></a>FTP命令</h2><p>如果报文内容出现FTP则是使用FTP命令，负责将、电脑上的数据与服务器数据进行交换。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/Sniffer抓包分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-计算机三级网络技术选择题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/计算机三级网络技术选择题/">计算机三级网络技术选择题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/10/计算机三级网络技术选择题/" class="archive-article-date">
-  	<time datetime="2019-03-10T07:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="RPR"><a href="#RPR" class="headerlink" title="RPR"></a>RPR</h2><p>1.RPR环中每一个节点都执行SRP公平算法<br>2.RPR将沿逆时针传输的光纤叫做内环<br>3.RPR环能够在50ms内实现治愈</p>
-<h2 id="接入技术特征"><a href="#接入技术特征" class="headerlink" title="接入技术特征"></a>接入技术特征</h2><p>1.Ad hoc是一种无线接入技术<br>2.光纤传输系统的中继距离可达100km一上<br>3.ADSL技术具有非对称带宽特性</p>
-<h2 id="宽带城域网技术"><a href="#宽带城域网技术" class="headerlink" title="宽带城域网技术"></a>宽带城域网技术</h2><p>1.网络业务包括多媒体、数据与语音业务<br>2.网络服务质量表现在延时、抖动、吞吐量与丢包率<br>3.网络服务质量保障技术主要有RSVP、DiffServ与MPLS<br>4.宽带城域网对汇集层及其以上设备采取外带管理，而对汇聚层以下采用袋内管理</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/10/计算机三级网络技术选择题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -1012,9 +268,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
