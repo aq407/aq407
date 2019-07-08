@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Aq407">
 <meta property="og:description" content="Beautiful Soup库是解析、遍历、维护“标签树”的功能库 Beautiful Soup库的导入from bs4 import BeautifulSoup 获取title的方法12345678import requestsfrom bs4 import BeautifulSoupurl = &amp;quot;https://python123.io/ws/demo.html&amp;quot;r = r">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-11T07:58:48.061Z">
+<meta property="og:updated_time" content="2019-05-25T16:30:53.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python爬虫-Beautiful Soup库">
 <meta name="twitter:description" content="Beautiful Soup库是解析、遍历、维护“标签树”的功能库 Beautiful Soup库的导入from bs4 import BeautifulSoup 获取title的方法12345678import requestsfrom bs4 import BeautifulSoupurl = &amp;quot;https://python123.io/ws/demo.html&amp;quot;r = r">
@@ -247,7 +247,7 @@
 </tr>
 </tbody>
 </table>
-
+<h2 id="基于bas4库的HTML格式化和编码"><a href="#基于bas4库的HTML格式化和编码" class="headerlink" title="基于bas4库的HTML格式化和编码"></a>基于bas4库的HTML格式化和编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license()&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; from bs4 import BeautifulSoup</span><br><span class="line">&gt;&gt;&gt; import requests</span><br><span class="line">&gt;&gt;&gt; r = requests.get(&quot;http://python123.io/ws/demo.html&quot;)</span><br><span class="line">&gt;&gt;&gt; demo = r.text</span><br><span class="line">&gt;&gt;&gt; demo</span><br><span class="line">&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;This is a python demo page&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n</span><br><span class="line">&lt;p class=&quot;title&quot;&gt;&lt;b&gt;The demo python introduces several python courses.&lt;/b&gt;&lt;/p&gt;\r\n</span><br><span class="line">&lt;p class=&quot;course&quot;&gt;Python is a wonderful general-purpose programming language. </span><br><span class="line">You can learn Python from novice to professional by tracking the following courses:\r\n</span><br><span class="line">&lt;a href=&quot;http://www.icourse163.org/course/BIT-268001&quot; class=&quot;py1&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">Basic Python&lt;/a&gt; and &lt;a href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot;</span><br><span class="line">class=&quot;py2&quot; id=&quot;link2&quot;&gt;Advanced Python&lt;/a&gt;.&lt;/p&gt;\r\n&lt;/body&gt;&lt;/html&gt;&apos;</span><br><span class="line"> </span><br><span class="line">soup = BeautifulSoup(demo,&quot;html.parser&quot;)</span><br><span class="line">print(soup.prettify())</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;title&gt;</span><br><span class="line">   This is a python demo page</span><br><span class="line">  &lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;p class=&quot;title&quot;&gt;</span><br><span class="line">   &lt;b&gt;</span><br><span class="line">    The demo python introduces several python courses.</span><br><span class="line">   &lt;/b&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p class=&quot;course&quot;&gt;</span><br><span class="line">   Python is a wonderful general-purpose programming language. You can learn Python from novice to professional by tracking the following courses:</span><br><span class="line">   &lt;a class=&quot;py1&quot; href=&quot;http://www.icourse163.org/course/BIT-268001&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">    Basic Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   and</span><br><span class="line">   &lt;a class=&quot;py2&quot; href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot; id=&quot;link2&quot;&gt;</span><br><span class="line">    Advanced Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   .</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -339,6 +339,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/05/12/JDBC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JDBC
+        
+      </div>
+    </a>
   
   
     <a href="/2019/05/09/python爬虫-requests/" id="article-nav-older" class="article-nav-link-wrap">
@@ -466,6 +475,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">悦读</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

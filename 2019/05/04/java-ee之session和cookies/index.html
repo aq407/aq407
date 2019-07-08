@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>java-ee之session和cookies | Aq407</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HTTP">
+  <meta name="description" content="cookiecookie将信息保存在客户端解决Cookie(String name, String value) Cookie cookie2 = new Cookie(&amp;quot;password&amp;quot;,password); //实例化Cookie对象，传入cooke名称和cookie的值设置cookie的保存时间 cookie1.setMaxAge(60*60*24*10) //保存十天">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java-ee之session和cookies">
 <meta property="og:url" content="http://yoursite.com/2019/05/04/java-ee之session和cookies/index.html">
 <meta property="og:site_name" content="Aq407">
-<meta property="og:description" content="HTTP">
+<meta property="og:description" content="cookiecookie将信息保存在客户端解决Cookie(String name, String value) Cookie cookie2 = new Cookie(&amp;quot;password&amp;quot;,password); //实例化Cookie对象，传入cooke名称和cookie的值设置cookie的保存时间 cookie1.setMaxAge(60*60*24*10) //保存十天">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-10T14:17:28.536Z">
+<meta property="og:updated_time" content="2019-05-11T17:46:59.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-ee之session和cookies">
-<meta name="twitter:description" content="HTTP">
+<meta name="twitter:description" content="cookiecookie将信息保存在客户端解决Cookie(String name, String value) Cookie cookie2 = new Cookie(&amp;quot;password&amp;quot;,password); //实例化Cookie对象，传入cooke名称和cookie的值设置cookie的保存时间 cookie1.setMaxAge(60*60*24*10) //保存十天">
   
     <link rel="alternative" href="/atom.xml" title="Aq407" type="application/atom+xml">
   
@@ -174,7 +174,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2>
+        <h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><h2 id="cookie将信息保存在客户端解决"><a href="#cookie将信息保存在客户端解决" class="headerlink" title="cookie将信息保存在客户端解决"></a>cookie将信息保存在客户端解决</h2><p>Cookie(String name, String value)</p>
+<h2 id="Cookie-cookie2-new-Cookie-quot-password-quot-password-实例化Cookie对象，传入cooke名称和cookie的值"><a href="#Cookie-cookie2-new-Cookie-quot-password-quot-password-实例化Cookie对象，传入cooke名称和cookie的值" class="headerlink" title="Cookie cookie2 = new Cookie(&quot;password&quot;,password); //实例化Cookie对象，传入cooke名称和cookie的值"></a><code>Cookie cookie2 = new Cookie(&quot;password&quot;,password);</code> //实例化Cookie对象，传入cooke名称和cookie的值</h2><p>设置cookie的保存时间</p>
+<h2 id="cookie1-setMaxAge-60-60-24-10-保存十天，单位为秒"><a href="#cookie1-setMaxAge-60-60-24-10-保存十天，单位为秒" class="headerlink" title="cookie1.setMaxAge(60*60*24*10) //保存十天，单位为秒"></a><code>cookie1.setMaxAge(60*60*24*10)</code> //保存十天，单位为秒</h2><p>设置cookie的使用范围</p>
+<h2 id="cookie1-setPath-quot-quot-全部路径都可已使用"><a href="#cookie1-setPath-quot-quot-全部路径都可已使用" class="headerlink" title="cookie1.setPath(&quot;/&quot;) //全部路径都可已使用"></a><code>cookie1.setPath(&quot;/&quot;)</code> //全部路径都可已使用</h2><p>中文处理</p>
+<p>保存有中文的cookie是需要编码为utf-8<br><code>String username2 = URLEncoder.encode(&quot;username&quot;,&quot;utf-8&quot;);//中文编码</code></p>
+<p>使用编码后的cookie需要解码</p>
+<h2 id="username-URLDecoder-decode-cookies-i-getValue-quot-utf-8-quot-解码"><a href="#username-URLDecoder-decode-cookies-i-getValue-quot-utf-8-quot-解码" class="headerlink" title="username = URLDecoder.decode(cookies[i].getValue(),&quot;utf-8&quot;);//解码"></a><code>username = URLDecoder.decode(cookies[i].getValue(),&quot;utf-8&quot;);//解码</code></h2><p>获取cookie的name和value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">for (int i=0; i&lt; cookies.length; i++)&#123;</span><br><span class="line">       String cname = cookies[i].getName();</span><br><span class="line">       if (&quot;username&quot;.equals(cname))&#123;</span><br><span class="line">           //username = cookies[i].getValue();</span><br><span class="line">           username = URLDecoder.decode(cookies[i].getValue(),&quot;utf-8&quot;);//解码</span><br><span class="line">           isChecked = &quot;checked&quot;; //记住是否记住的状态</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       if (&quot;password&quot;.equals(cname))&#123;</span><br><span class="line">           password = cookies[i].getValue();</span><br><span class="line">           isChecked = &quot;checked&quot;;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>session将信息保存在服务器端解决</p>
+<p><code>request.getSession().setAttribute(&quot;uname&quot;,username);//将username存储在session中</code></p>
+<p><code>session.getAttribute(&quot;uname&quot;)//获取存储在session中的内容</code></p>
+<p><code>request.getSession().invalidate();取消保存seeionn</code></p>
+
       
 
       
@@ -402,6 +413,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">悦读</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

@@ -152,6 +152,813 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Mybatis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/Mybatis/">Mybatis</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/09/Mybatis/" class="archive-article-date">
+  	<time datetime="2019-07-08T17:41:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h2><p>一、 创建数据库和表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `t_customer` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `NAME` varchar(20) DEFAULT NULL,</span><br><span class="line">  `gender` char(1) DEFAULT NULL,</span><br><span class="line">  `telephone` varchar(20) DEFAULT NULL,</span><br><span class="line">  `address` varchar(50) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
+<p>二、创建Customer类 set和get方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package domain;</span><br><span class="line"></span><br><span class="line">public class Customer &#123;</span><br><span class="line">    private Integer id;</span><br><span class="line">    private String name;</span><br><span class="line">    private String gender;</span><br><span class="line">    private String telephone;</span><br><span class="line">    private String address;</span><br><span class="line"></span><br><span class="line">    public Integer getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(Integer id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getGender() &#123;</span><br><span class="line">        return gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setGender(String gender) &#123;</span><br><span class="line">        this.gender = gender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getTelephone() &#123;</span><br><span class="line">        return telephone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTelephone(String telephone) &#123;</span><br><span class="line">        this.telephone = telephone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getAddress() &#123;</span><br><span class="line">        return address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAddress(String address) &#123;</span><br><span class="line">        this.address = address;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三、创建CustomerMapper接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public interface CustomerMapper &#123;</span><br><span class="line"></span><br><span class="line">    public void saveCustomer(Customer customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四、创建CUstomerMapper.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;mapper namespace=&quot;mapper.CustomerMapper&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;insert id=&quot;saveCustomer&quot; parameterType=&quot;domain.Customer&quot;&gt;</span><br><span class="line">        INSERT INTO `ssm`.`t_customer` ( `NAME`, `gender`, `telephone`, `address`)</span><br><span class="line">         VALUES (#&#123;name&#125;, #&#123;gender&#125;, #&#123;telephone&#125;, #&#123;address&#125;);</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>五、创建sqlMaoConfig.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">    &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">        &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">            &lt;transactionManager type=&quot;JDBC&quot;/&gt;</span><br><span class="line">            &lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/how2java?useSSL=false&amp;amp;serverTimezone=UTC&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">                &lt;property name=&quot;password&quot; value=&quot;525432&quot;/&gt;</span><br><span class="line">            &lt;/dataSource&gt;</span><br><span class="line">        &lt;/environment&gt;</span><br><span class="line">    &lt;/environments&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource=&quot;mapper/CustomerMapper.xml&quot;/&gt;</span><br><span class="line">    &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>六、创建测试类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">import domain.Customer;</span><br><span class="line">import mapper.CustomerMapper;</span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line"></span><br><span class="line">public class MyBatisTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test() throws IOException &#123;</span><br><span class="line">        //1.创建sqlSessionFactoryBuilder</span><br><span class="line">        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();</span><br><span class="line"></span><br><span class="line">        //加载sqlMapConfig.xml</span><br><span class="line">        InputStream is = Resources.getResourceAsStream(&quot;sqlMaoConfig.xml&quot;);</span><br><span class="line"></span><br><span class="line">        //创建SqlSessionFactory</span><br><span class="line">        SqlSessionFactory factory = builder.build(is);</span><br><span class="line"></span><br><span class="line">        //3.打开SqlSession</span><br><span class="line">        SqlSession sqlSession = factory.openSession();</span><br><span class="line"></span><br><span class="line">        //4.获取Mapper接口对象</span><br><span class="line">        CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);</span><br><span class="line"></span><br><span class="line">        //5.操作</span><br><span class="line">        Customer customer = new Customer();</span><br><span class="line">        customer.setName(&quot;小明&quot;);</span><br><span class="line">        customer.setGender(&quot;男&quot;);</span><br><span class="line">        customer.setTelephone(&quot;10086&quot;);</span><br><span class="line">        customer.setAddress(&quot;广州天河广场&quot;);</span><br><span class="line"></span><br><span class="line">        customerMapper.saveCustomer(customer);</span><br><span class="line"></span><br><span class="line">        //提交事务,否则数据插不进去</span><br><span class="line">        sqlSession.commit();</span><br><span class="line"></span><br><span class="line">        //关闭资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/09/Mybatis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Mybatis整合Spring" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/Mybatis整合Spring/">Mybatis整合Spring</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/09/Mybatis整合Spring/" class="archive-article-date">
+  	<time datetime="2019-07-08T17:38:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mybatis整合Spring"><a href="#Mybatis整合Spring" class="headerlink" title="Mybatis整合Spring"></a>Mybatis整合Spring</h2><h2 id="有Mapper实现类"><a href="#有Mapper实现类" class="headerlink" title="有Mapper实现类"></a>有Mapper实现类</h2><p>需要导入必须包<br>mybatis-spring<br>spring-ioc<br>spring-aop<br>spring-tx<br>spring-context</p>
+<p>1.编写mapper的实现类<br>    接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import domain.Customer;</span><br><span class="line"></span><br><span class="line">public interface CustomerMapper &#123;</span><br><span class="line"></span><br><span class="line">    public void saveCustomer(Customer customer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现类:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package dao.impl;</span><br><span class="line"></span><br><span class="line">import domain.Customer;</span><br><span class="line">import mapper.CustomerMapper;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.mybatis.spring.support.SqlSessionDaoSupport;</span><br><span class="line"></span><br><span class="line">//接口实现类</span><br><span class="line">//继承SqlSessionDaoSupport</span><br><span class="line">public class CustomerMapperlmpl extends SqlSessionDaoSupport implements CustomerMapper &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void saveCustomer(Customer customer) &#123;</span><br><span class="line">        SqlSession sqlSession = this.getSqlSession();</span><br><span class="line">        sqlSession.insert(&quot;saveCustomer&quot;,customer);</span><br><span class="line">        //这里不需要事务提交</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.编写applicationContext.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--读取jdbc.properties--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--创建DataSoure--&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;driverClassName&quot; value=&quot;$&#123;jdbc.driverClass&#125;&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.user&#125;&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--最大空闲时间--&gt;</span><br><span class="line">        &lt;property name=&quot;maxIdle&quot; value=&quot;5&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--创建sqlsessionFactory对象--&gt;</span><br><span class="line">    &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--关联连接池--&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;&lt;!--注入dataSource--&gt;</span><br><span class="line">        &lt;!--加载sql映射文件mapper/CustomerMapper.xml--&gt;</span><br><span class="line">        &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath:mapper/*.xml&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">        </span><br><span class="line">    &lt;!--创建CustomerMapperImpl对象，注入SqlSessionFactory--&gt;</span><br><span class="line">    &lt;bean id=&quot;customerMapper&quot; class=&quot;dao.impl.CustomerMapperlmpl&quot;&gt;</span><br><span class="line">        &lt;!--关联sqlSessionFactory--&gt;</span><br><span class="line">        &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>3.编写测试类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">import domain.Customer;</span><br><span class="line">import mapper.CustomerMapper;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class MyBatisSpringTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        //加载spring配置</span><br><span class="line">        ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line"></span><br><span class="line">        //获取对象</span><br><span class="line">        CustomerMapper customerMapper = (CustomerMapper) ac.getBean(&quot;customerMapper&quot;);</span><br><span class="line"></span><br><span class="line">        //调用方法</span><br><span class="line">        Customer customer = new Customer();</span><br><span class="line">        customer.setName(&quot;小m&quot;);</span><br><span class="line">        customer.setGender(&quot;男&quot;);</span><br><span class="line">        customer.setTelephone(&quot;1008611&quot;);</span><br><span class="line">        customer.setAddress(&quot;广州天河&quot;);</span><br><span class="line">        customerMapper.saveCustomer(customer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="没有mapper实现类"><a href="#没有mapper实现类" class="headerlink" title="没有mapper实现类"></a>没有mapper实现类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--读取jdbc.properties--&gt;</span><br><span class="line"></span><br><span class="line">&lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--创建DataSoure--&gt;</span><br><span class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;driverClassName&quot; value=&quot;$&#123;jdbc.driverClass&#125;&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.user&#125;&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--创建sqlsessionFactory对象--&gt;</span><br><span class="line">&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;</span><br><span class="line">    &lt;!--关联连接池--&gt;</span><br><span class="line">    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;&lt;!--注入dataSource--&gt;</span><br><span class="line">    &lt;!--加载sql映射文件mapper/CustomerMapper.xml--&gt;</span><br><span class="line">    &lt;property name=&quot;mapperLocations&quot; value=&quot;classpath:mapper/CustomerMapper.xml&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置mapper接口--&gt;</span><br><span class="line">    &lt;bean id=&quot;cutomerMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--关联Mapper接口--&gt;</span><br><span class="line">        &lt;property name=&quot;mapperInterface&quot; value=&quot;mapper.CustomerMapper&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--关联sqlSessionFactory--&gt;</span><br><span class="line">        &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>测试类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">import domain.Customer;</span><br><span class="line">import mapper.CustomerMapper;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class MyBatisSpringTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        //加载spring配置</span><br><span class="line">        ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line"></span><br><span class="line">        //获取对象</span><br><span class="line">        CustomerMapper customerMapper = (CustomerMapper) ac.getBean(&quot;customerMapper&quot;);</span><br><span class="line"></span><br><span class="line">        //调用方法</span><br><span class="line">        Customer customer = new Customer();</span><br><span class="line">        customer.setName(&quot;老王&quot;);</span><br><span class="line">        customer.setGender(&quot;男&quot;);</span><br><span class="line">        customer.setTelephone(&quot;1008612&quot;);</span><br><span class="line">        customer.setAddress(&quot;广州天河&quot;);</span><br><span class="line">        customerMapper.saveCustomer(customer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="接口扫描-推荐"><a href="#接口扫描-推荐" class="headerlink" title="接口扫描(推荐)"></a>接口扫描(推荐)</h2><p>修改applicationContext.xml</p>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"><br><br><!--读取jdbc.properties--><br><br>&lt;context:property-placeholder location=”classpath:jdbc.properties”/&gt;<br><br><!--创建DataSoure--><br><bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"><br>    <property name="url" value="${jdbc.url}"><br>    <property name="driverClassName" value="${jdbc.driverClass}"><br>    <property name="username" value="${jdbc.user}"><br>    <property name="password" value="${jdbc.password}"><br><br></property></property></property></property></bean><br><br><!--创建sqlsessionFactory对象--><br><bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"><br>    <!--关联连接池--><br>    <property name="dataSource" ref="dataSource"><!--注入dataSource--><br>    <!--加载sql映射文件mapper/CustomerMapper.xml--><br>    <property name="mapperLocations" value="classpath:mapper/CustomerMapper.xml"><br></property></property></bean><br><br>    <!-- Mapper--><br><br>    <!--
+        注意：如果使用mapper接口包扫描，那么每个mapper接口在spring容器中
+        的id名称为类名：例如CustomerMapper --> customerMapper<br>    –&gt;<br>    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"><br><br>        <!--配置mapper接口所在包路径--><br>        <property name="basePackage" value="mapper"><br>    </property></bean><br><br></beans>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## spring 整合jdbc事务</span><br><span class="line"></span><br><span class="line">修改applicationContext.xml</span><br></pre></td></tr></table></figure>
+<p>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context" xsi:schemalocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-4.0.xsd"><br><br><!--读取jdbc.properties--><br><br>&lt;context:property-placeholder location=”classpath:jdbc.properties”/&gt;<br><br><!--创建DataSoure--><br><bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"><br>    <property name="url" value="${jdbc.url}"><br>    <property name="driverClassName" value="${jdbc.driverClass}"><br>    <property name="username" value="${jdbc.user}"><br>    <property name="password" value="${jdbc.password}"><br><br></property></property></property></property></bean><br><br><!--创建sqlsessionFactory对象--><br><bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"><br>    <!--关联连接池--><br>    <property name="dataSource" ref="dataSource"><!--注入dataSource--><br>    <!--加载sql映射文件mapper/CustomerMapper.xml--><br>    <property name="mapperLocations" value="classpath:mapper/CustomerMapper.xml"><br></property></property></bean><br><br>    <!-- Mapper--><br>    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"><br><br>        <!--配置mapper接口所在包路径--><br>        <property name="basePackage" value="mapper"><br>    </property></bean><br><br>    <!--开启spring的ioc注解扫描 --><br><br>    &lt;context:component-scan base-package=”service,mapper”/&gt;<br><br>    <!--开启spring的事务 --><br>    <!--事务管理器 --><br>    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"><br>        <property name="dataSource" ref="dataSource"><br>    </property></bean><br>    <!--开启Spring事务注解 --><br><br>    &lt;tx:annotation-driven transaction-manager=”transactionManager”/&gt;<br><br></beans>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在业务方法上添加注解</span><br></pre></td></tr></table></figure>
+<p>package service.impl;</p>
+<p>import domain.Customer;<br>import mapper.CustomerMapper;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Service;<br>import org.springframework.transaction.annotation.Transactional;<br>import service.CustomerService;</p>
+<p>@Service(“customerService”)<br>@Transactional<br>public class CustomerServiceImpl implements CustomerService {<br>    //注入mapper对象</p>
+<pre><code>@Autowired
+private CustomerMapper customerMapper;
+
+public void saveCustomer(Customer customer) {
+    customerMapper.saveCustomer(customer);
+
+    //模拟异常
+    int i =100/0;
+
+    customerMapper.saveCustomer(customer);
+
+}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 总结</span><br><span class="line"></span><br><span class="line">1.创建jdbc.properties 提供数据库的链接账号和密码</span><br></pre></td></tr></table></figure>
+<p>jdbc.url = jdbc:mysql://127.0.0.1:3306/ssm?serverTimezone=UTC&amp;characterEncoding=UTF-8<br>jdbc.driverClass = com.mysql.cj.jdbc.Driver<br>jdbc.user=root<br>jdbc.password=525432</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2.创建一个有get和set的类</span><br><span class="line"></span><br><span class="line">3.创建mapper接口，并提供方法</span><br></pre></td></tr></table></figure>
+<p>public interface CustomerMapper {</p>
+<pre><code>public void saveCustomer(Customer customer);
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4.新建mapper接口的xml配置文件，提供sql</span><br><span class="line">语句</span><br></pre></td></tr></table></figure>
+<mapper namespace="mapper.CustomerMapper">//mapper接口路径<br><br>    <insert id="saveCustomer" parametertype="domain.Customer"> //指定类型<br>        INSERT INTO <code>ssm</code>.<code>t_customer</code> ( <code>NAME</code>, <code>gender</code>, <code>telephone</code>, <code>address</code>)<br>         VALUES (#{name}, #{gender}, #{telephone}, #{address});<br>    </insert><br></mapper>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">配置applicationContext.xml</span><br><span class="line">	创建sqlsessionFactory对象</span><br><span class="line">	关联连接池</span><br><span class="line">	注入dataSource</span><br><span class="line">	加载sql映射文件mapper/CustomerMapper.xml</span><br><span class="line">	扫描Mapper接口&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;</span><br><span class="line">	配置mapper接口所在包路径</span><br><span class="line">	开启spring的ioc注解扫描</span><br><span class="line">	开启spring的事务</span><br><span class="line">	事务管理器</span><br><span class="line">	开启Spring事务注解</span><br><span class="line">	</span><br><span class="line">创建service事务管理接口</span><br></pre></td></tr></table></figure>
+<p>public interface CustomerService {</p>
+<pre><code>public void saveCustomer(Customer customer);
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">实现接方法</span><br></pre></td></tr></table></figure>
+<p>@Service(“customerService”)//将自动注册到Spring容器，不需要再在applicationContext.xml文件定义bean了<br>@Transactional //注解管理事务<br>public class CustomerServiceImpl implements CustomerService {<br>    //注入mapper对象<br>    @Autowired<br>    private CustomerMapper customerMapper;</p>
+<pre><code>public void saveCustomer(Customer customer) {
+    customerMapper.saveCustomer(customer);
+}
+</code></pre><p>}</p>
+<p><code>`</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/09/Mybatis整合Spring/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-spring框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/12/spring框架/">spring框架</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/12/spring框架/" class="archive-article-date">
+  	<time datetime="2019-06-12T15:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Spring是一个基于IOC和AOP的结构J2EE系统的框架<br>IOC 反转控制 是Spring的基础，Inversion Of Control<br>简单说就是创建对象由以前的程序员自己new 构造方法来调用，变成了交由Spring创建对象<br>DI 依赖注入 Dependency Inject. 简单地说就是拿到的对象的属性，已经被注入好相关值了，直接使用即可。</p>
+<h2 id="创建spring"><a href="#创建spring" class="headerlink" title="创建spring"></a>创建spring</h2><p>1.新建项目</p>
+<p>2.导入jar包</p>
+<p>3.创建Category类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Category &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.新建applicationContext.xml文件<br>applicationContext.xml是Spring的核心配置文件，通过关键字c即可获取Category对象，<br>该对象获取的时候，即被注入了字符串”category 1“到name属性中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;</span><br><span class="line">   http://www.springframework.org/schema/beans</span><br><span class="line">   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">   http://www.springframework.org/schema/aop</span><br><span class="line">   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd</span><br><span class="line">   http://www.springframework.org/schema/tx</span><br><span class="line">   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd</span><br><span class="line">   http://www.springframework.org/schema/context</span><br><span class="line">   http://www.springframework.org/schema/context/spring-context-3.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;c&quot; class=&quot;Category&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;category 1&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>5.测试代码</p>
+<p>演示通过spring获取Category对象，以及该对象被注入的name属性。<br>如图所示，可以打印出通过Spring拿到的Category对象的name属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class TestSpring &#123;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(</span><br><span class="line">                new String[] &#123; &quot;applicationContext.xml&quot; &#125;);</span><br><span class="line"> </span><br><span class="line">        Category c = (Category) context.getBean(&quot;c&quot;);</span><br><span class="line">         </span><br><span class="line">        System.out.println(c.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以获取对象的方式来进行比较</p>
+<p>传统的方式：<br>通过new 关键字主动创建一个对象<br>IOC方式<br>对象的生命周期由Spring来管理，直接从Spring那里去获取一个对象。 IOC是反转控制 (Inversion Of Control)的缩写，就像控制权从本来在自己手里，交给了Spring。 </p>
+<p>打个比喻：<br>传统方式：相当于你自己去菜市场new 了一只鸡，不过是生鸡，要自己拔毛，去内脏，再上花椒，酱油，烤制，经过各种工序之后，才可以食用。<br>用 IOC：相当于去馆子(Spring)点了一只鸡，交到你手上的时候，已经五味俱全，你就只管吃就行了。</p>
+<h2 id="spring注入对象"><a href="#spring注入对象" class="headerlink" title="spring注入对象"></a>spring注入对象</h2><p>在一个类里引入另一个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class Product &#123;</span><br><span class="line">    String sex;</span><br><span class="line">    String age;</span><br><span class="line">    private Category category;</span><br><span class="line"></span><br><span class="line">    public Category getCategory() &#123;</span><br><span class="line">        return category;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCategory(Category category) &#123;</span><br><span class="line">        this.category = category;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getSex() &#123;</span><br><span class="line">        return sex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setSex(String sex) &#123;</span><br><span class="line">        this.sex = sex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(String age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在创建Product的时候注入一个Category对象<br>注意，这里要使用ref来注入另一个对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;bean name=&quot;c&quot; class=&quot;pojo.Category&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; value=&quot;category 2&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;p&quot; class=&quot;pojo.Product&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;age&quot; value=&quot;10&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;sex&quot; value=&quot;boy&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;category&quot; ref=&quot;c&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>通过Spring拿到的Product对象已经被注入了Category对象了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(</span><br><span class="line">                new String[]&#123;&quot;applicationContext.xml&quot;&#125;);</span><br><span class="line"></span><br><span class="line">        Product p = (Product) context.getBean(&quot;p&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;age:&quot;+p.getAge());</span><br><span class="line">        System.out.println(&quot;sex:&quot;+p.getSex());</span><br><span class="line">        System.out.println(&quot;Category&quot;+p.getCategory().getName());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="spring-注解方式IOC-ID"><a href="#spring-注解方式IOC-ID" class="headerlink" title="spring 注解方式IOC/ID"></a>spring 注解方式IOC/ID</h2><p>在applicationContext.xml 中增加<a href="context:annotation-config/" target="_blank" rel="noopener">context:annotation-config/</a> 表示Spring要用注解的方式进行配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;context:annotation-config/&gt; &lt;!--表示告诉Spring要用注解的方式进行配置--&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean name=&quot;c&quot; class=&quot;pojo.Category&quot;&gt;</span><br><span class="line">       &lt;property name=&quot;name&quot; value=&quot;category 2&quot; /&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">   &lt;bean name=&quot;p&quot; class=&quot;pojo.Product&quot;&gt;</span><br><span class="line">       &lt;property name=&quot;age&quot; value=&quot;10&quot;&gt;&lt;/property&gt;</span><br><span class="line">       &lt;property name=&quot;sex&quot; value=&quot;boy&quot;&gt;&lt;/property&gt;</span><br><span class="line">     &lt;!--  &lt;property name=&quot;category&quot; ref=&quot;c&quot;/&gt;--&gt;</span><br><span class="line">   &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>在Product类中 private Category category上方加入@Autowired</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Autowired</span><br><span class="line">private Category category;</span><br><span class="line"></span><br><span class="line">public Category getCategory() &#123;</span><br><span class="line">    return category;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void setCategory(Category category) &#123;</span><br><span class="line">    this.category = category;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对bean的注释"><a href="#对bean的注释" class="headerlink" title="对bean的注释"></a>对bean的注释</h2><p>以移出applicationContext.xml配置文件，进行注解配置<br>加入&lt;context:component-scan base-package=”pojo”/&gt;</p>
+<p>在类方法上加入@Component(“p”)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Component(&quot;p&quot;)</span><br><span class="line">public class Product &#123;</span><br><span class="line">    String sex = &quot;boy&quot;;</span><br><span class="line">    String age = &quot;22&quot;;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private Category category;</span><br><span class="line"></span><br><span class="line">    public Category getCategory() &#123;</span><br><span class="line">        return category;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Component(&quot;c&quot;)</span><br><span class="line">public class Category &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private String name = &quot;product 1&quot;;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-AOP-面向切面编程"><a href="#Spring-AOP-面向切面编程" class="headerlink" title="Spring AOP 面向切面编程"></a>Spring AOP 面向切面编程</h2><p>相关概念</p>
+<p>连接点(Joinpoint):可能被拦截到的方法 例如：所有方法</p>
+<p>通知(Advice):增强代码<br>切入点(Pointcut):已经被增强的连接点。<br>切面(Aspect):是切入点和通知的结合<br>一个切入点和一个通知，组成一个特殊的面</p>
+<p>引入(Introduction):在不修改类代码的前提下，为类添加新的方法和属性<br>目标对象(Target Object):目标类，需要被代理的类<br>proxy(代理类)</p>
+<p>AOP代理(AOP Proxy):AOP框架创建的对象，用来实现切面契约(aspect contract)<br>(包括通知方法执行等功能)</p>
+<p>织入(Weaving):把advice引用到目标对象target来创建新的代理对象proxy的过程</p>
+<p>Spring所有的切面和通知器都必须放在一个<a href="aop:config" target="_blank" rel="noopener">aop:config</a>内<br>（可以配置包含多个<a href="aop:config" target="_blank" rel="noopener">aop:config</a>元素）,每一个<a href="aop:config" target="_blank" rel="noopener">aop:config</a>可以包含pointcut，advisor和aspect元素</p>
+<h2 id="手动方式"><a href="#手动方式" class="headerlink" title="手动方式"></a>手动方式</h2><p>jdk动态代理：<br>jdk动态代理对”装饰者”设计模式简化。使用前提：必须有接口<br>1、目标类：接口 + 实现类<br>2、切面类：用于存通知MyAspect<br>3、工厂类；编写工厂生成代理</p>
+<p>目标类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public interface UserService &#123;</span><br><span class="line">    public void addUser();</span><br><span class="line">    public void updateUser();</span><br><span class="line">    public void deleteUser();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class UserServiceImpl implements UserService &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void addUser() &#123;</span><br><span class="line">        System.out.println(&quot;a_proxy.a_jdk addUser&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void updateUser() &#123;</span><br><span class="line">        System.out.println(&quot;a_proxy.a_jdk updateUser&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void deleteUser() &#123;</span><br><span class="line">        System.out.println(&quot;a_proxy.a_jdk deleteUser&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>切面类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MyAspect &#123;</span><br><span class="line"></span><br><span class="line">    public void before()&#123;</span><br><span class="line">        System.out.println(&quot;前&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void after()&#123;</span><br><span class="line">        System.out.println(&quot;后&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>工厂：</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/12/spring框架/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hibernate框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/07/hibernate框架/">hibernate框架</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/07/hibernate框架/" class="archive-article-date">
+  	<time datetime="2019-06-07T13:24:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hibernate使用步骤"><a href="#Hibernate使用步骤" class="headerlink" title="Hibernate使用步骤"></a>Hibernate使用步骤</h2><p>1：先准备好数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database test;</span><br></pre></td></tr></table></figure>
+<p>2:创建数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">use test;</span><br><span class="line"> </span><br><span class="line">CREATE TABLE product_ (</span><br><span class="line">  id int(11) NOT NULL AUTO_INCREMENT, //AUTO_INCREMENT 自增长</span><br><span class="line">  name varchar(30) ,</span><br><span class="line">  price float ,</span><br><span class="line">  PRIMARY KEY (id) //主键为id字段</span><br><span class="line">) DEFAULT CHARSET=UTF8;</span><br></pre></td></tr></table></figure>
+<p>3:创建项目，导入导入hibernate所依赖的jar包</p>
+<p>4：实体类 Product 用于映射数据库中的表product_</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package pojo;</span><br><span class="line"></span><br><span class="line">public class Product &#123;</span><br><span class="line">    int id;</span><br><span class="line">    String name;</span><br><span class="line">    float price;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public float getPrice() &#123;</span><br><span class="line">        return price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPrice(float price) &#123;</span><br><span class="line">        this.price = price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5：配置Product.hbm.xml<br>命名规则:类名.hbm.xml</p>
+<class name="类名" table="表名">
+
+<p><id name="id" column="id">//表示属性id,映射表里的字段id</id></p>
+<p><generator class="native"> //意味着id的自增长方式采用数据库的本地方式</generator></p>
+<p><property name="name"> //这里配置的时候，只写了属性name,没有通过column=”name” 显式的指定字段，那么字段的名字也是name.</property></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC</span><br><span class="line">        &quot;-//Hibernate/Hibernate Mapping DTD 3.0//EN&quot;</span><br><span class="line">        &quot;http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-mapping package=&quot;pojo&quot;&gt;</span><br><span class="line">    &lt;class name=&quot;Product&quot; table=&quot;product_&quot;&gt;</span><br><span class="line">        &lt;id name=&quot;id&quot; column=&quot;id&quot;&gt;</span><br><span class="line">            &lt;generator class=&quot;native&quot;&gt;</span><br><span class="line">            &lt;/generator&gt;</span><br><span class="line">        &lt;/id&gt;</span><br><span class="line">        &lt;property name=&quot;name&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;price&quot; /&gt;</span><br><span class="line">    &lt;/class&gt;</span><br><span class="line">&lt;/hibernate-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>6:配置hibernate.cfg.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&apos;1.0&apos; encoding=&apos;utf-8&apos;?&gt;</span><br><span class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</span><br><span class="line">        &quot;-//Hibernate/Hibernate Configuration DTD 3.0//EN&quot;</span><br><span class="line">        &quot;http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;hibernate-configuration&gt;</span><br><span class="line"></span><br><span class="line">  &lt;session-factory&gt;</span><br><span class="line">    &lt;!-- Database connection settings --&gt;</span><br><span class="line">    &lt;property name=&quot;connection.driver_class&quot;&gt;com.mysql.jdbc.Driver&lt;/property&gt;&lt;!--数据库驱动--&gt;</span><br><span class="line">    &lt;property name=&quot;connection.url&quot;&gt;jdbc:mysql://localhost:3306/test?useSSL=false&amp;amp;serverTimezone=UTC&lt;/property&gt;&lt;!--数据库链接--&gt;</span><br><span class="line">    &lt;property name=&quot;connection.username&quot;&gt;root&lt;/property&gt;&lt;!--数据库账号--&gt;</span><br><span class="line">    &lt;property name=&quot;connection.password&quot;&gt;525432&lt;/property&gt;&lt;!--数据库密码--&gt;</span><br><span class="line">    &lt;!-- SQL dialect --&gt;</span><br><span class="line">    &lt;property name=&quot;dialect&quot;&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt; &lt;!--表示用的是mysql数据库--&gt;</span><br><span class="line">    &lt;property name=&quot;current_session_context_class&quot;&gt;thread&lt;/property&gt;&lt;!--这是Hibernate事务管理方式，即每个线程一个事务--&gt;</span><br><span class="line">    &lt;property name=&quot;show_sql&quot;&gt;true&lt;/property&gt;&lt;!--这表示是否在控制台显示执行的sql语句--&gt;</span><br><span class="line">    &lt;property name=&quot;hbm2ddl.auto&quot;&gt;update&lt;/property&gt;&lt;!--这表示是否会自动更新数据库的表结构，有这句话，其实是不需要创建表的，因为Hibernate会自动去创建表结构--&gt;</span><br><span class="line">    &lt;mapping resource=&quot;pojo/Product.hbm.xml&quot; /&gt;&lt;!--这表示Hibernate会去识别Product这个实体类--&gt;</span><br><span class="line">  &lt;/session-factory&gt;</span><br><span class="line"></span><br><span class="line">&lt;/hibernate-configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>7：测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package test;</span><br><span class="line">import org.hibernate.Session;</span><br><span class="line">import org.hibernate.SessionFactory;</span><br><span class="line">import org.hibernate.cfg.Configuration;</span><br><span class="line">import pojo.Product;</span><br><span class="line"></span><br><span class="line">public class TestHibernate &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        SessionFactory sf = new Configuration().configure().buildSessionFactory(); //获取SessionFactory </span><br><span class="line"></span><br><span class="line">        Session s = sf.openSession(); //通过SessionFactory 获取一个Session</span><br><span class="line">        s.beginTransaction(); //在Session基础上开启一个事务</span><br><span class="line"></span><br><span class="line">        Product p = new Product();</span><br><span class="line">        p.setName(&quot;海贼王&quot;);</span><br><span class="line">        p.setPrice(1998);</span><br><span class="line">        s.save(p); //通过调用Session的save方法把对象保存到数据库</span><br><span class="line"></span><br><span class="line">        s.getTransaction().commit(); //提交事务</span><br><span class="line">        s.close(); //关闭Session</span><br><span class="line">        sf.close(); //关闭SessionFactory</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TestHibernate &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        SessionFactory sf = new Configuration().configure().buildSessionFactory();</span><br><span class="line"></span><br><span class="line">        Session s = sf.openSession();</span><br><span class="line">        s.beginTransaction();</span><br><span class="line">        for (int i = 0; i&lt;10; i++)&#123;</span><br><span class="line"></span><br><span class="line">            Product p = new Product();</span><br><span class="line">            p.setName(&quot;iphone&quot;+i);</span><br><span class="line">            p.setPrice(i);</span><br><span class="line">            s.save(p);</span><br><span class="line">        &#125;</span><br><span class="line">        s.getTransaction().commit();</span><br><span class="line">        s.close();</span><br><span class="line">        sf.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对象状态"><a href="#对象状态" class="headerlink" title="对象状态"></a>对象状态</h2><p>实体类对象在Hibernate中有3种状态<br>分别是：<br>瞬时 指的是没有和hibernate发生任何关系，在数据库中也没有对应的记录，一旦JVM结束，这个对象也就消失了<br>持久 指得是一个对象和hibernate发生联系，有对应的session,并且在数据库中有对应的一条记录<br>脱管 指的是一个对象虽然在数据库中有对应的一条记录，但是它所对应的session已经关闭了 </p>
+<p>new 了一个Product();，在数据库中还没有对应的记录，这个时候Product对象的状态是瞬时的。 </p>
+<p>通过Session的save把该对象保存在了数据库中，该对象也和Session之间产生了联系，此时状态是持久的。</p>
+<p>最后把Session关闭了，这个对象在数据库中虽然有对应的数据，但是已经和Session失去了联系，相当于脱离了管理，状态就是脱管的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        SessionFactory sf = new Configuration().configure().buildSessionFactory();</span><br><span class="line"></span><br><span class="line">        Session s = sf.openSession();</span><br><span class="line">        s.beginTransaction();</span><br><span class="line">        Product p = new Product();</span><br><span class="line">        p.setName(&quot;p1&quot;);</span><br><span class="line">        System.out.println(&quot;此时p是瞬时状态&quot;);</span><br><span class="line">        s.save(p);</span><br><span class="line">        System.out.println(&quot;此时p是持久状态&quot;);</span><br><span class="line">        s.getTransaction().commit();</span><br><span class="line">        s.close();</span><br><span class="line">        System.out.println(&quot;此时p是脱管状态&quot;);</span><br><span class="line">        sf.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</class>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/07/hibernate框架/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java-Struts2框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/28/java-Struts2框架/">java-Struts2框架</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/28/java-Struts2框架/" class="archive-article-date">
+  	<time datetime="2019-05-28T14:05:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Struts2"><a href="#Struts2" class="headerlink" title="Struts2"></a>Struts2</h2><p>Struts2是一个开源，免费，轻量级的mvc框架<br>轻量级：如果框架没有侵入性，就说框架是轻量级的<br>侵入性：如果使用一个框架，必须实现框架提供的接口，或者继承框架提供的类<br>在struts2之前是struts1.struts1出现很早，市场占有率比较高。所有不支持一些新的<br>视图展示技术，逐渐被淘汰。Struts2 = Struts1 + webWork。<br>Struts2 是基于请求的mvc框架</p>
+<h2 id="Struts2目录结构"><a href="#Struts2目录结构" class="headerlink" title="Struts2目录结构"></a>Struts2目录结构</h2><p>apps—-应用案例<br>docs—-文档<br>lib—-使用的包<br>src—-源码</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>新建web项目<br>导入jar包<br>编写web.xml文件–配置struts2的前端控制器(分发器)<br>在src下，添加struts2的配置文件，名称为struts.xml，该配置文件名不能被更改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span><br><span class="line">         version=&quot;4.0&quot;&gt;</span><br><span class="line">    &lt;filter&gt;</span><br><span class="line">        &lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">        &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</span><br><span class="line">    &lt;/filter&gt;</span><br><span class="line">    &lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;struts2&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/filter-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<p>在struts2中所有的业务方法都是public的<br>返回值都为String类型，所有业务方法都没有参数<br>方法名可以自定义，默认为execute</p>
+<h2 id="Struts-xml"><a href="#Struts-xml" class="headerlink" title="Struts.xml"></a>Struts.xml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE struts PUBLIC</span><br><span class="line">        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span><br><span class="line">        &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;struts&gt;</span><br><span class="line">    &lt;!--package 分模块管理</span><br><span class="line">        name自定义，但是不能重复，在 一个项目中唯一</span><br><span class="line">        namespace命名空间和url请求直接相关</span><br><span class="line">       如果是/ 请求为hello.action  是/user  请求为/user/hello.action</span><br><span class="line"></span><br><span class="line">       extends继承必须直接或者间接继承struts-default</span><br><span class="line">     --&gt;</span><br><span class="line">	 </span><br><span class="line">	&lt;!--常量配置--&gt;</span><br><span class="line">    &lt;!--扩展名配置--&gt;</span><br><span class="line">    &lt;constant name=&quot;struts.action.extension&quot; value=&quot;zhangsan,action,do,,&quot;&gt;&lt;/constant&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--乱码解决--&gt;</span><br><span class="line">    &lt;constant name=&quot;struts.custom.i18n.encoding&quot; value=&quot;utf-18&quot;&gt;&lt;/constant&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--开发者模式--&gt;</span><br><span class="line">    &lt;constant name=&quot;struts.devMode&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line">    &lt;package name=&quot;default&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 配置action</span><br><span class="line">            配置url和处理类的方法进行映射</span><br><span class="line">            name为请求名称 不加后缀</span><br><span class="line">            class 处理类的完全限定名称 包名 + 类名 如果不配置，由默认类来处理</span><br><span class="line">            method指定请求处理的方法，默认为execute方法</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;action name=&quot;hello&quot; class=&quot;bean.HelloAction&quot; method=&quot;execute&quot;&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!--</span><br><span class="line">                result结果集配置</span><br><span class="line">                name结果集名称和处理方法的返回值匹配默认success，可以自定义</span><br><span class="line">                struts2提供了5个返回结果:</span><br><span class="line">                Action.SUCCESS 执行成功跳转到下一个视图</span><br><span class="line">                Action.NONE 执行成功 不需要视图显示</span><br><span class="line">                Action.ERROR 执行失败显示失败页面</span><br><span class="line">                Action.INPUT 需要执行Action需要更多的输入条件</span><br><span class="line">                Action.LOGIN 需要登录后才执行</span><br><span class="line"></span><br><span class="line">               type指定响应结果类型</span><br><span class="line">               dispatcher 转发 默认</span><br><span class="line">               redirect 重定向</span><br><span class="line">               redirectAction 重定向到action</span><br><span class="line"></span><br><span class="line">               result的值为跳转页面 不加/为先对namespace路径，建议绝对路径</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;result name=&quot;success&quot; type=&quot;redirect&quot;&gt;hello.jsp&lt;/result&gt;</span><br><span class="line">        &lt;/action&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/package&gt;</span><br><span class="line"></span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Struts2的执行流程"><a href="#Struts2的执行流程" class="headerlink" title="Struts2的执行流程"></a>Struts2的执行流程</h2><p>发起请求—-&gt;服务器接受请求并且交给Struts2的前端控制器—-&gt;根据请求的url查看struts.xml中的namespase+actionName<br>—-&gt;action所对应类的对应法方—-》根据方法的执行结果到action结果集进行匹配—-&gt;响应结果</p>
+<h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><p>使用struts2获取表单数据：只需表单域名称和action处理的属性名称一致，并且提供属性的set方法，<br>那么在Action处理类中即可获得表单数据。这种获取数据的方式称为属性驱动</p>
+<p>页面:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;login.action&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    username:&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;</span><br><span class="line">    password:&lt;input type=&quot;password&quot; name=&quot;username&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;login&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>action:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import static com.opensymphony.xwork2.Action.SUCCESS;</span><br><span class="line"></span><br><span class="line">public class LoginAction &#123;</span><br><span class="line">    private String username;</span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">    //登录处理</span><br><span class="line">    public String login()&#123;</span><br><span class="line">        System.out.println(&quot;username=&quot;+username+&quot;\tpassword=&quot;+password);</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setUsername(String username) &#123;</span><br><span class="line">        this.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPassword(String password) &#123;</span><br><span class="line">        this.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>struts.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;struts&gt;</span><br><span class="line"></span><br><span class="line">    &lt;package name=&quot;default&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">        &lt;action name=&quot;login&quot; class=&quot;action.LoginAction&quot; method=&quot;login&quot;&gt;</span><br><span class="line">            &lt;result&gt;/succes.jsp&lt;/result&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/action&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/package&gt;</span><br><span class="line"></span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
+<p>如果数据需要显示到页面上，那么该数据可以作为处理类的属性，处理方法后该属性有值，并且有该属性的get方法。那么<br>在页面上可以直接通过el表达式获取。</p>
+<h2 id="action的几种创建方式"><a href="#action的几种创建方式" class="headerlink" title="action的几种创建方式"></a>action的几种创建方式</h2><p>通过action接口来创建处理l类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class HelloAction implements Action &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String execute() throws Exception &#123;</span><br><span class="line">        System.out.println(&quot;hello&quot;);</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过继承ActionSupport类来创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/*</span><br><span class="line">* ActionSupport实现Action接口</span><br><span class="line">* 并且ActionSupport类提供了很多其他struts2的功能</span><br><span class="line">* 比如数据校验，国际化</span><br><span class="line">* 默认实现已经有了*/</span><br><span class="line">public class Hello1Action extends ActionSupport &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>无侵入性的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Hello2Action &#123;</span><br><span class="line">    public String execute()&#123;</span><br><span class="line">        System.out.println(&quot;无侵入实现&quot;);</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优化配置"><a href="#优化配置" class="headerlink" title="优化配置"></a>优化配置</h2><p>在struts2中，随着业务的增加，action的配置文件中会急剧增加，导致了配置文件膨胀的问题<br>Struts2中提供了3中解决问题：<br>1通过动态方式调用来解决<br>2通过统配符配置来解决<br>3通过注解来解决</p>
+<h2 id="通过动态方法来调用解决问题"><a href="#通过动态方法来调用解决问题" class="headerlink" title="通过动态方法来调用解决问题"></a>通过动态方法来调用解决问题</h2><p>在常量中开启动态方法调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启动态文件调用--&gt;</span><br><span class="line">    &lt;constant name=&quot;struts.enable.DynamicMethodInvocation&quot; value=&quot;true&quot;&gt;&lt;/constant&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在配置action，一个action处理类，只需配置一次即可，不需要配置处理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;action name=&quot;userAction&quot; class=&quot;action.UserAction&quot;&gt;</span><br><span class="line">            &lt;result type=&quot;redirect&quot;&gt;userAction!find.action&lt;/result&gt;</span><br><span class="line">            &lt;result name=&quot;list&quot;&gt;/list.jsp&lt;/result&gt;</span><br><span class="line">        &lt;/action&gt;</span><br></pre></td></tr></table></figure></p>
+<p>调用处理方法：ActionNamemethodName.action 注意：使用动态方法调用需要注意<br>不同处理方法的返回值是否一致的问题，会配置多个结果集。这种方式不推荐使用。<br>不安全</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/ss_war_exploded/userAction!find.action</span><br></pre></td></tr></table></figure>
+<h2 id="通过通配符解决"><a href="#通过通配符解决" class="headerlink" title="通过通配符解决"></a>通过通配符解决</h2><p>注意：处理方法是的返回值问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--*表示一个或多个字符 占位符&#123;1&#125; 表示匹配一个*的内容</span><br><span class="line">            使用通配符时需要注意如果有不是通配符的action，先匹配action在匹配通配符</span><br><span class="line">            在实际开发中通配符比较常见</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;action name=&quot;*&quot; class=&quot;action.UserAction&quot; method=&quot;&#123;1&#125;&quot;&gt;</span><br><span class="line">            &lt;result type=&quot;redirect&quot;&gt;find&lt;/result&gt;</span><br><span class="line">            &lt;result name=&quot;list&quot;&gt;/list.jsp&lt;/result&gt;</span><br><span class="line">        &lt;/action&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="ThreadLacal"><a href="#ThreadLacal" class="headerlink" title="ThreadLacal"></a>ThreadLacal</h2><p>是个容器，存放在该容器中的数据是线程安全的</p>
+<h2 id="ActionContext：是struts的上下文对象"><a href="#ActionContext：是struts的上下文对象" class="headerlink" title="ActionContext：是struts的上下文对象"></a>ActionContext：是struts的上下文对象</h2><p>它的本质就是一个容器，也是一个map结构的对象。actionContext贯穿于action的执行<br>生命周期，每次接受请求后都会新建一个ActionContext对象，将servletAPI中的数据存入<br>到ActionContext中，实现Struts2和Servlet的解耦。使得测试可以不依赖于容器。而且<br>ActionContext是线程安全的。由于每次请求都重新创建ActionContext对象，导致执行<br>效率比servlet更低。</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>在struts2中，对常用的数据类型已经进行了类型转换工作。但是对于自定义类型struts2<br>没法去做类型转换工作。需要自定义类型转换器来实现类型的转换。</p>
+<p>类型转换的实现步骤：<br>新建一个类型转换类继承</p>
+<h2 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验"></a>数据校验</h2><p>数据校验分为2类，一类是前端的数据校验，一般通过js实现，一类是后端的数据校验。<br>在一些安全级别要求较高的项目都需要进行数据验证。struts2提供了两种后端校验方法，<br>一种是硬件编码实现，一种是检验框架实现。</p>
+<p>如果使用Struts2的数据校验功能，action需要继承ActionSupport类，在该类中提供了一个validate方法，<br>可以将验证规则写在该方法中，只有方法执行通过后，才会执行业务方法。</p>
+<p>实现步骤：<br>    业务处理类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">	public class UserAction extends ActionSupport &#123;</span><br><span class="line">    private User user;</span><br><span class="line"></span><br><span class="line">    //先执行validate方法，该方法通过后执行execute方法</span><br><span class="line">    //默认该方法是通过的</span><br><span class="line">    //在validate方法中 添加了FieldError或者ActionError那么该方法</span><br><span class="line">    //将执行不能通过 并且返回结果集为INPUT</span><br><span class="line">    public void validate() &#123;</span><br><span class="line">        System.out.println(&quot;-----validate------&quot;);</span><br><span class="line">        if (user.getName().length() &lt; 4 || user.getName().length() &gt; 10)&#123;</span><br><span class="line">            //用户名不合法添加错误信息</span><br><span class="line">            this.addFieldError(&quot;user.name&quot;,&quot;用户名不合法&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String execute()&#123;</span><br><span class="line">        System.out.println(&quot;-----execute------&quot;);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">    public User getUser()&#123;</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUser(User user)&#123;</span><br><span class="line">        this.user = user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在配置文件中配置input结果集：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;action name=&quot;save&quot; class=&quot;action.UserAction&quot;&gt;</span><br><span class="line">            &lt;result&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">            &lt;result name=&quot;input&quot;&gt;/save.jsp&lt;/result&gt;</span><br><span class="line">&lt;/action&gt;</span><br></pre></td></tr></table></figure>
+<p>在页面中需要添加struts2的标签库，并且添加错误标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;form action=&quot;save.action&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    username:&lt;input type=&quot;text&quot; name=&quot;user.name&quot;/&gt;&lt;s:fielderror fieldName=&quot;user.name&quot;&gt;&lt;/s:fielderror&gt;&lt;br&gt;</span><br><span class="line">    sex:&lt;input type=&quot;text&quot; name=&quot;user.sex&quot;&gt;&lt;br&gt;</span><br><span class="line">    age:&lt;input type=&quot;text&quot; name=&quot;user.age&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;添加&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>通过上述方法实现数据校验有一个问题：一个业务类中有对个业务方法。并且每个业务方法的校验规则可能不一致<br>但是所有的业务方法都会通过validate。导致功能不能实现。在struts2中，如果一个业务类中有多个业务方法，那么需要为<br>每个业务方法添加自己的验证方法，验证方法命名规则为validate+业务方法名(首字母大写)。这样执行业务方法时，执行顺序为validateXxxx—&gt;validate —-&gt; xxx业务方法<br>这样的话validate方法中填写的是公共校验规则。</p>
+<h2 id="使用struts2提供的校验框架实现数据校验"><a href="#使用struts2提供的校验框架实现数据校验" class="headerlink" title="使用struts2提供的校验框架实现数据校验"></a>使用struts2提供的校验框架实现数据校验</h2><p>实现步骤：<br>    创建jsp页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	&lt;form action=&quot;save.action&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    username:&lt;input type=&quot;text&quot; name=&quot;user.name&quot;/&gt;&lt;s:fielderror fieldName=&quot;user.name&quot;&gt;&lt;/s:fielderror&gt;&lt;br&gt;</span><br><span class="line">    sex:&lt;input type=&quot;text&quot; name=&quot;user.sex&quot;&gt;&lt;br&gt;</span><br><span class="line">    age:&lt;input type=&quot;text&quot; name=&quot;user.age&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;添加&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure></p>
+<pre><code>创建action
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">	public class UserformAction extends ActionSupport &#123;</span><br><span class="line">    private User user;</span><br><span class="line">    public String save()&#123;</span><br><span class="line">        System.out.println(&quot;----execute&quot;);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public User getUser()&#123;</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUser(User user)&#123;</span><br><span class="line">        this.user = user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>在action类所在包下添加校验规则文件以ActionClassName-validation.xml命名
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!DOCTYPE validators PUBLIC</span><br><span class="line">        &quot;-//OpenSymphony Group//XWork Validator 1.0.3//EN&quot;</span><br><span class="line">        &quot;http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd&quot;&gt;</span><br><span class="line">&lt;validators&gt;</span><br><span class="line">    &lt;!--field表示对哪个表单域进行验证--&gt;</span><br><span class="line">    &lt;field name=&quot;user.name&quot;&gt;</span><br><span class="line">        &lt;!--字段验证器</span><br><span class="line">          struts2提供了很多验证器</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;field-validator type=&quot;requiredstring&quot;&gt;</span><br><span class="line">            &lt;message&gt;你必须输入姓名&lt;/message&gt;</span><br><span class="line">        &lt;/field-validator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;field-validator type=&quot;stringlength&quot;&gt;</span><br><span class="line">            &lt;param name=&quot;maxLength&quot;&gt;10&lt;/param&gt;</span><br><span class="line">            &lt;param name=&quot;minLength&quot;&gt;4&lt;/param&gt;</span><br><span class="line">            &lt;message&gt;姓名长度在$&#123;minLength&#125;和$&#123;maxLength&#125;之间&lt;/message&gt;</span><br><span class="line">        &lt;/field-validator&gt;</span><br><span class="line">    &lt;/field&gt;</span><br><span class="line">&lt;/validators&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>在配置struts文件
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!DOCTYPE struts PUBLIC</span><br><span class="line">        &quot;-//Apache Software Foundation//DTD Struts Configuration 2.0//EN&quot;</span><br><span class="line">        &quot;http://struts.apache.org/dtds/struts-2.0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;struts&gt;</span><br><span class="line">    &lt;package name=&quot;default&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">        &lt;action name=&quot;save&quot; class=&quot;action.UserformAction&quot; method=&quot;save&quot;&gt;</span><br><span class="line">            &lt;result&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">            &lt;result name=&quot;input&quot;&gt;/save.jsp&lt;/result&gt;</span><br><span class="line">        &lt;/action&gt;</span><br><span class="line">    &lt;/package&gt;</span><br><span class="line">&lt;/struts&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>struts2中的所有功能都是由拦截器来实现的。拦截器是struts2的核心。拦截器和过滤器非常相似<br>过滤器过滤的是所有请求，拦截器只过滤action。并且在struts2中所有功能都是可插拔的。在struts2中<br>还可以自定义拦截器来实现一些struts2没有提供的功能。在struts2中拦截器的实现是通过代理来实现的(AOP)。<br>在struts2中拦截器是单列的所有action共享相同拦截器，所以在拦截器中自定义常量时要注意线程安全问题。</p>
+<p>struts2中提供很多拦截器实现各种功能。在开发过程中可以根据不同的应用选择不同的拦截器来实现功能。<br>struts2提供了一系列默认的拦截器(拦截栈)来实现。在struts-default.xml中，这些拦截器都是定义在<br>struts-default包下的，所有使用struts2是定义的package要直接或间接继承struts-default</p>
+<p>常见内置拦截器的使用，使用内置拦截器是需要引用拦截器</p>
+<p>token拦截器：<br>    在页面中添加token标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;s:token&gt;&lt;/s:token&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>在action中引用token拦截器
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;action name=&quot;save&quot; class=&quot;action.UserAction&quot; method=&quot;save&quot;&gt;</span><br><span class="line">       &lt;result&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">       &lt;!--当用户重复提交时，会返回invalid.token结果集--&gt;</span><br><span class="line">       &lt;result name=&quot;invalid.token&quot;&gt;/invalid.jsp&lt;/result&gt;</span><br><span class="line">       &lt;interceptor-ref name=&quot;token&quot;&gt;&lt;/interceptor-ref&gt;</span><br><span class="line">   &lt;/action&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>编写失效页面
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt; </span><br><span class="line">    表单不能重复提交</span><br><span class="line">   &lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义拦截器"><a href="#自定义拦截器" class="headerlink" title="自定义拦截器"></a>自定义拦截器</h2><p>1、在开发过程中，经常会有使用到struts2没有提供的一些功能，这时需要我们自定义拦截器栏实现<br>2、自定义拦截器的实现步骤:<br>    定义拦截器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">	/*</span><br><span class="line">* 自定义拦截器有两种方式</span><br><span class="line">* 实现Interceptor接口</span><br><span class="line">* 继承AbstractInterceptor类*/</span><br><span class="line">public class MyInterceptor implements Interceptor &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void init() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    //拦截器主题实现</span><br><span class="line">    /*</span><br><span class="line">    * 当拦截器方法被调用执行后，需要通过invocation.invoke调用一下一个拦截器</span><br><span class="line">    * 如果没有拦截器那么自信action中的业务方法*/</span><br><span class="line">    public String intercept(ActionInvocation invocation) throws Exception &#123;</span><br><span class="line">        System.out.println(&quot;自定义拦截器被执行了----&quot;);</span><br><span class="line">        //返回值为结果集</span><br><span class="line">        return invocation.invoke();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在package标签中配置拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--拦截器的配置--&gt;</span><br><span class="line">&lt;interceptors&gt;</span><br><span class="line">    &lt;!--name自定义在项目中唯一--&gt;</span><br><span class="line">    &lt;interceptor name=&quot;myInterceptor&quot; class=&quot;interceptor.MyInterceptor&quot;&gt;&lt;/interceptor&gt;</span><br><span class="line">&lt;/interceptors&gt;</span><br></pre></td></tr></table></figure>
+<p>在使用的action中引用拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--使用自定义拦截器--&gt;</span><br><span class="line">   &lt;action name=&quot;hello&quot; class=&quot;action.HelloAction&quot; method=&quot;hello&quot;&gt;</span><br><span class="line">       &lt;result&gt;/success.jsp&lt;/result&gt;</span><br><span class="line">       &lt;interceptor-ref name=&quot;myInterceptor&quot;&gt;&lt;/interceptor-ref&gt;</span><br><span class="line">   &lt;/action&gt;</span><br></pre></td></tr></table></figure>
+<p>3、登录拦截器</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/28/java-Struts2框架/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-python爬虫-信息标记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/python爬虫-信息标记/">python爬虫-信息标记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/26/python爬虫-信息标记/" class="archive-article-date">
+  	<time datetime="2019-05-25T16:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/26/python爬虫-信息标记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java-ee之Filter过滤器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/java-ee之Filter过滤器/">java-ee之Filter过滤器</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/25/java-ee之Filter过滤器/" class="archive-article-date">
+  	<time datetime="2019-05-25T15:06:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Filter概念"><a href="#Filter概念" class="headerlink" title="Filter概念"></a>Filter概念</h2><p>用户请求时，先经过filter，并且可以有多个过滤器，每个过滤器完成一个任务，可用于解决中文乱码，权限验证等</p>
+<p>Servlet Filter Listener 是javaEE中三种技术，俗称三兄弟</p>
+<p>过滤器是请求到达目标资源之前的预处理程序，同时还是目标资源执行完毕后的后处理程序(响应离开服务器前进行处理)</p>
+<h2 id="使用过滤器步骤"><a href="#使用过滤器步骤" class="headerlink" title="使用过滤器步骤"></a>使用过滤器步骤</h2><p>1.开发一个过滤器<br>2.配置一个过滤器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public void destroy() &#123;</span><br><span class="line">        /*摧毁时调用*/</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">chain.doFilter(request, response);//调用下一个过滤器</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/25/java-ee之Filter过滤器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/JDBC/">JDBC</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/12/JDBC/" class="archive-article-date">
+  	<time datetime="2019-05-12T06:02:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="初始化驱动"><a href="#初始化驱动" class="headerlink" title="初始化驱动"></a>初始化驱动</h2><p>初始化驱动前要先导入mysql-jdbc的jar包</p>
+<p>通过<font color="red">Class.forName(“com.mysql.jdbc.Driver”)</font><br>初始化驱动类com.mysql.jdbc.Driver</p>
+<font color="red">新版的驱动为com.mysql.cj.jdbc.Driver</font>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Testjdbc &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">              Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">              System.out.println(&quot;驱动加载成功&quot;);</span><br><span class="line">            &#125;catch (ClassNotFoundException e)&#123; </span><br><span class="line">	</span><br><span class="line">             System.out.println(&quot;数据库加载失败&quot;);</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在mysql中创建数据库"><a href="#在mysql中创建数据库" class="headerlink" title="在mysql中创建数据库"></a>在mysql中创建数据库</h2><p>打开cmd，切换到mysql的bin目录下</p>
+<p><code>net start mysql</code> //启动mysql服务</p>
+<p><code>mysql -u root -p</code> //建立连接，输入密码</p>
+<p><code>CREATE DATABASE 数据库名; //创建数据库</code></p>
+<p><code>CREATE DATABASE</code>test2<code>DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci 创建数据库并指定字符集</code></p>
+<h2 id="建立数据库连接"><a href="#建立数据库连接" class="headerlink" title="建立数据库连接"></a>建立数据库连接</h2><p>建立与数据库的Connection连接需要提供：<br>数据库地址及端口:jdbc:mysql://127.0.0.1:3306/Test?characterEncoding=UTF-8<br>数据库名称:Test<br>编码方式:UTF-8<br>账号和密码</p>
+<font color="red">新版url为:jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8</font><br><font color="red">这一步要执行需要建立在mysql中有数据库的基础上</font>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">  </span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">		String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?characterEncoding=UTF-8&quot;;</span><br><span class="line">		String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line">  </span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">            Connection c = DriverManager</span><br><span class="line">                    .getConnection(url,user,password);</span><br><span class="line">  </span><br><span class="line">            System.out.println(&quot;连接成功，获取连接对象： &quot; + c);</span><br><span class="line">  </span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>先创建数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user_table(</span><br><span class="line">    user_name VARCHAR(30),</span><br><span class="line">    user_sex varchar(4),</span><br><span class="line">    user_age int</span><br><span class="line">)ENGINE = InnoDB DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection con= null;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            System.out.println(&quot;驱动加载成功&quot;);</span><br><span class="line">            con = DriverManager.getConnection(url,user,password);</span><br><span class="line">            System.out.println(&quot;数据库连接成功&quot; + con);</span><br><span class="line"></span><br><span class="line">            Statement s = con.createStatement();//Statement是用于执行SQL语句</span><br><span class="line">            String sql = &quot;insert into user_table value (&apos;迪莫&apos;,&apos;男&apos;,10)&quot;;</span><br><span class="line">            s.execute(sql);//执行sql语句</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;插入成功&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(&quot;驱动加载失败&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            System.out.println(&quot;数据库连接失败&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关闭连接"><a href="#关闭连接" class="headerlink" title="关闭连接"></a>关闭连接</h2><p>数据库连接资源有限，操作结束后先关闭Statement，后关闭Connection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">finally &#123;</span><br><span class="line">            if (s != null)&#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    s.close();</span><br><span class="line">                &#125; catch (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (con != null)&#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    con.close();</span><br><span class="line">                &#125; catch (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用try-with-resource的方式自动关闭连接"><a href="#使用try-with-resource的方式自动关闭连接" class="headerlink" title="使用try-with-resource的方式自动关闭连接"></a>使用try-with-resource的方式自动关闭连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try (</span><br><span class="line">               Connection con = DriverManager.getConnection(url,user,password);</span><br><span class="line">               Statement s = con.createStatement();</span><br><span class="line"></span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">            &#123;</span><br><span class="line">                String sql = &quot;insert into user_table value (&apos;迪莫&apos;,&apos;男&apos;,10)&quot;;</span><br><span class="line">                s.execute(sql);</span><br><span class="line">            &#125;catch(SQLException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p><code>delete from 表名 where 删除条件;</code> //mysql删除语句<br><code>truncate table 表名;</code> //删除表内所有数据</p>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p><code>update user_table set user_name = &#39;散&#39; where id=2</code> //user_table表名，user_name要修改的字段名, ‘散’：要修改的信息，id=2,修改条件，修改id=2的数据</p>
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            System.out.println(&quot;加载驱动成功&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(&quot;加载驱动成功&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try (</span><br><span class="line">                Connection con = DriverManager.getConnection(url,user,password);</span><br><span class="line">                Statement s = con.createStatement();</span><br><span class="line">             )</span><br><span class="line">        &#123;</span><br><span class="line">            String sql = &quot;select * from user_table&quot;;</span><br><span class="line"></span><br><span class="line">            ResultSet rs = s.executeQuery(sql);//将查询结果集返回给resultset</span><br><span class="line"></span><br><span class="line">            while(rs.next())&#123;</span><br><span class="line">                int id = rs.getInt(&quot;id&quot;);</span><br><span class="line">                String name = rs.getString(&quot;user_name&quot;);</span><br><span class="line">                String sex = rs.getString(&quot;user_sex&quot;);</span><br><span class="line">                int age = rs.getInt(&quot;user_age&quot;);</span><br><span class="line">                System.out.print(id+&quot; &quot;);</span><br><span class="line">                System.out.print(name+&quot; &quot;);</span><br><span class="line">                System.out.print(sex+&quot; &quot;);</span><br><span class="line">                System.out.println(age+&quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/12/JDBC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-python爬虫-Beautiful-Soup库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -245,7 +1052,7 @@
 </tr>
 </tbody>
 </table>
-
+<h2 id="基于bas4库的HTML格式化和编码"><a href="#基于bas4库的HTML格式化和编码" class="headerlink" title="基于bas4库的HTML格式化和编码"></a>基于bas4库的HTML格式化和编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license()&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; from bs4 import BeautifulSoup</span><br><span class="line">&gt;&gt;&gt; import requests</span><br><span class="line">&gt;&gt;&gt; r = requests.get(&quot;http://python123.io/ws/demo.html&quot;)</span><br><span class="line">&gt;&gt;&gt; demo = r.text</span><br><span class="line">&gt;&gt;&gt; demo</span><br><span class="line">&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;This is a python demo page&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n</span><br><span class="line">&lt;p class=&quot;title&quot;&gt;&lt;b&gt;The demo python introduces several python courses.&lt;/b&gt;&lt;/p&gt;\r\n</span><br><span class="line">&lt;p class=&quot;course&quot;&gt;Python is a wonderful general-purpose programming language. </span><br><span class="line">You can learn Python from novice to professional by tracking the following courses:\r\n</span><br><span class="line">&lt;a href=&quot;http://www.icourse163.org/course/BIT-268001&quot; class=&quot;py1&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">Basic Python&lt;/a&gt; and &lt;a href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot;</span><br><span class="line">class=&quot;py2&quot; id=&quot;link2&quot;&gt;Advanced Python&lt;/a&gt;.&lt;/p&gt;\r\n&lt;/body&gt;&lt;/html&gt;&apos;</span><br><span class="line"> </span><br><span class="line">soup = BeautifulSoup(demo,&quot;html.parser&quot;)</span><br><span class="line">print(soup.prettify())</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;title&gt;</span><br><span class="line">   This is a python demo page</span><br><span class="line">  &lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;p class=&quot;title&quot;&gt;</span><br><span class="line">   &lt;b&gt;</span><br><span class="line">    The demo python introduces several python courses.</span><br><span class="line">   &lt;/b&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p class=&quot;course&quot;&gt;</span><br><span class="line">   Python is a wonderful general-purpose programming language. You can learn Python from novice to professional by tracking the following courses:</span><br><span class="line">   &lt;a class=&quot;py1&quot; href=&quot;http://www.icourse163.org/course/BIT-268001&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">    Basic Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   and</span><br><span class="line">   &lt;a class=&quot;py2&quot; href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot; id=&quot;link2&quot;&gt;</span><br><span class="line">    Advanced Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   .</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -432,563 +1239,9 @@
 
 
   
-    <article id="post-java-ee之session和cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/04/java-ee之session和cookies/">java-ee之session和cookies</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/04/java-ee之session和cookies/" class="archive-article-date">
-  	<time datetime="2019-05-03T16:15:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/java-ee之session和cookies/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-ee-之JSP的构成" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/17/java-ee-之JSP的构成/">java ee 之声明</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/17/java-ee-之JSP的构成/" class="archive-article-date">
-  	<time datetime="2019-04-17T15:24:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>&lt;%<br> //局部变量<br> //可写java代码</p>
-<p>%&gt;</p>
-<p>&lt;%!<br> //声明<br> //全局变量<br> //可写Java变量<br> //不可以使用内建对象(out.print)<br>%&gt;</p>
-<p>&lt;%=<br>//表达式，不用结束符号;<br>%&gt;</p>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>1.HTML注释<!-- --> 只能注释html的标签</p>
-<p>2.java的注释 多行/<em> </em>/，单行//</p>
-<p>3.jsp注释:&lt;%– –%&gt; 不会传送到客户端，节省流量，提高安全性</p>
-<h2 id="静态包含"><a href="#静态包含" class="headerlink" title="静态包含"></a>静态包含</h2><p>&lt;%@include file = “header.jsp”%&gt;</p>
-<p>时机:翻译jsp—java<br>需要包含翻译，编译<br>不允许同名变量</p>
-<h2 id="动态包含"><a href="#动态包含" class="headerlink" title="动态包含"></a>动态包含</h2><p>&lt;jsp:include page = “footer.jsp”&gt;&lt;/jsp:include&gt;</p>
-<p>时机:运行 class……<br>不需要编译<br>允许同名变量</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/17/java-ee-之JSP的构成/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PHP与数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/14/PHP与数据库/">PHP与数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/14/PHP与数据库/" class="archive-article-date">
-  	<time datetime="2019-04-14T15:46:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="PHP连接数据库"><a href="#PHP连接数据库" class="headerlink" title="PHP连接数据库"></a>PHP连接数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$dbhost = &apos;127.0.0.1&apos;; //服务器地址</span><br><span class="line">$dbuser = &apos;root&apos;; //数据库账号</span><br><span class="line">$dbpass = &apos;&apos;; //数据库密码</span><br><span class="line">$CREATR DATABASE student //创建数据库</span><br><span class="line">$dbname = &apos;student&apos;; //数据库名称</span><br><span class="line">$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname) or die(&quot;提示：数据库连接失败！&quot;);</span><br><span class="line">mysqli_set_charset($conn,&apos;utf8&apos;); //指定编码</span><br></pre></td></tr></table></figure>
-<h2 id="插入数据-增"><a href="#插入数据-增" class="headerlink" title="插入数据(增)"></a>插入数据(增)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;INSERT INTO pepo (ID, name, age,sex,city)</span><br><span class="line">VALUES (1, &apos;mengmeng&apos;, 33,&apos;男&apos;,&apos;北京&apos;)&quot;; //插入的数据</span><br></pre></td></tr></table></figure>
-<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;delete from pepo where id = $id&quot;;//pepo数据表，id = $id删除条件</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/14/PHP与数据库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-EE之servlet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/31/java-EE之servlet/">java EE之servlet</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/31/java-EE之servlet/" class="archive-article-date">
-  	<time datetime="2019-03-31T13:47:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习路径:Servlet -&gt; JSP -&gt; Spring -&gt; 组合框架</p>
-<h2 id="一、servlet简介"><a href="#一、servlet简介" class="headerlink" title="一、servlet简介"></a>一、servlet简介</h2><ul>
-<li><p>Servlet 本身不能独立运行，需要在一个web应用中运行的而一个web运用是部署在tomact中的</p>
-</li>
-<li><p>使用 Servlet，可以收集来自网页表单的用户输入并处理，呈现来自数据库或者其他源的记录，即与用户交互。</p>
-</li>
-<li><p>Servlet 可以动态地生成网页</p>
-</li>
-<li><p>Servlet 是学习 JSP 的基础。</p>
-</li>
-</ul>
-<h2 id="二、创建项目"><a href="#二、创建项目" class="headerlink" title="二、创建项目"></a>二、创建项目</h2><p>打开ide，File-&gt;New-&gt;Project,并勾选 Web Application，点击 next</p>
-<h2 id="三、导入必须的servlet-api-jar包"><a href="#三、导入必须的servlet-api-jar包" class="headerlink" title="三、导入必须的servlet-api.jar包"></a>三、导入必须的servlet-api.jar包</h2><p>开发 Servlet 需要用到 servlet-api.jar 这个包里的相关类。</p>
-<p>IDEA 中配置好 tomcat 后这个包是自动导入的，如果没有，可以在左侧点击 External Libraries -&gt; Tomcat，在 servlet-api 上右键，选择 Add as Library 即可。</p>
-<h2 id="编写html页面"><a href="#编写html页面" class="headerlink" title="编写html页面"></a>编写html页面</h2><p>在web目录下新建html文件：</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/31/java-EE之servlet/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ip路由聚合与子网划分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/ip路由聚合与子网划分/">ip路由聚合与子网划分</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/17/ip路由聚合与子网划分/" class="archive-article-date">
-  	<time datetime="2019-03-16T16:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="CIDR地址规划"><a href="#CIDR地址规划" class="headerlink" title="CIDR地址规划"></a>CIDR地址规划</h2><p>使用各种长度的“网络前缀” 来代替分类地址中的网络号和子网号，采用”最大前缀匹配法”<br>计算此目的地址的网络</p>
-<p><font color="#dd0000"> IP地址::={&lt;网络前缀&gt;，&lt;主机号&gt;}</font></p>
-<p>使用“斜线记法”，又称CIDR记法</p>
-<p>一个CIDR地址块可以表示很多地址，所以在路由表中就是利用CIDR地址块来查找目的网络，这种地址的聚合常称为路由聚合，也称为构成超网</p>
-<h2 id="IP地址聚合"><a href="#IP地址聚合" class="headerlink" title="IP地址聚合"></a>IP地址聚合</h2><p>子网掩码:保留主机为不能全为1和0</p>
-<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p>可用ip地址的计算: 2^主机位-2<br>子网掩码的划分: 2^x &gt;=子网可容纳主机数+2 即主机位为X，网络位=32-x</p>
-<p>可以ip地址段划分:第一个:网络地址+1，最后一位：将第一个ip地址的主机位置一</p>
-<h2 id="防火墙安装与配置"><a href="#防火墙安装与配置" class="headerlink" title="防火墙安装与配置"></a>防火墙安装与配置</h2><p>串接一种设备能建通路由器之间的流量，写TAP<br>问串接一种设备能提供安全保护，一般是IPS<br>问防火墙访问外网设置，分别填nat和global<br>要求允许内网FTP向外网提供服务的命令时:fixup<br>若需要为内网的一个服务器配置一个公网IP地址:static</p>
-<p>-</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/17/ip路由聚合与子网划分/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-微信小程序教程笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/16/微信小程序教程笔记/">微信小程序教程笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/16/微信小程序教程笔记/" class="archive-article-date">
-  	<time datetime="2019-03-16T09:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="小程序代码结构与基本配置"><a href="#小程序代码结构与基本配置" class="headerlink" title="小程序代码结构与基本配置"></a>小程序代码结构与基本配置</h2><p>1.app.js 注册微信小程序应用</p>
-<p>2.app.json 微信小程序的全局配置</p>
-<p>3.app.wxss 设置微信小程序全局的样式</p>
-<p>4.project.config.json 开发工具配置文件</p>
-<p>5.pages 存放我微信小程序所有页面,(每个小程序页面最多由四个文件组成){</p>
-<p>.js文件处理页面的逻辑和数据交互<br>.json文件配置页面信息<br>.wxml展示页面的元素和内容<br>.wxss文件设置页面元素的样式<br>}</p>
-<p>6.utils</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/16/微信小程序教程笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Sniffer抓包分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/Sniffer抓包分析/">Sniffer抓包分析</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/13/Sniffer抓包分析/" class="archive-article-date">
-  	<time datetime="2019-03-13T15:49:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>##　ping命令</p>
-<p>功能：通过发送ICMP报文，监听回应报文，从而检查与远程或本地计算机的<br>连接，主要测试一个给定的目的是否可达。<font color="#dd0000"> 默认发送4个ICMP报文<br>每个报文包含64个字节数据。</font></p>
-<p>有<code>ICMP:Echo</code>是使用ping命令</p>
-<h2 id="Tracert命令"><a href="#Tracert命令" class="headerlink" title="Tracert命令"></a>Tracert命令</h2><p>功能：通过发送包含 不同TTL的ICMP报文并监听回应报文，  来检测到达目的的<br>计算机的路径，主要是跟踪通往给定目的地的路由器列表</p>
-<p>Source Address 源ip地址<br>Dest Address 目的地址</p>
-<p>有<code>Time-to-live</code>使用的是Tracert命令</p>
-<h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>第一次:客户机发送SYN=1，随机产生seq=x的数据包发送给服务器<br>第二次:服务器接收到请求，确认请求，向客户机发送ack=x+1（z），随机产生seq=y，ACK=1,SYN=1的数据包<br>第三次:接收到数据并检查是否正确，如果ack正确则，向服务器发送ACK=1,seq=z+1,ack=y+1的数据包</p>
-<p><img src="https://github.com/aq407/aq407.github.io/blob/master/img/tcp3.PNG?raw=true" alt="tcp三次握手"></p>
-<p>TCP三次握手过程，结束标志为TCP握手结束的那一条报文编号</p>
-<p>Protoool 协议<br>Destination address 目的地地址<br>本机所在子网可能容纳的主机数最多是126<br>该主机上配置的子网掩码最大长度是: 主机地址和相同位段的ip聚合</p>
-<h2 id="FTP命令"><a href="#FTP命令" class="headerlink" title="FTP命令"></a>FTP命令</h2><p>如果报文内容出现FTP则是使用FTP命令，负责将、电脑上的数据与服务器数据进行交换。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/Sniffer抓包分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-计算机三级网络技术选择题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/计算机三级网络技术选择题/">计算机三级网络技术选择题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/10/计算机三级网络技术选择题/" class="archive-article-date">
-  	<time datetime="2019-03-10T07:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="RPR"><a href="#RPR" class="headerlink" title="RPR"></a>RPR</h2><p>1.RPR环中每一个节点都执行SRP公平算法<br>2.RPR将沿逆时针传输的光纤叫做内环<br>3.RPR环能够在50ms内实现治愈</p>
-<h2 id="接入技术特征"><a href="#接入技术特征" class="headerlink" title="接入技术特征"></a>接入技术特征</h2><p>1.Ad hoc是一种无线接入技术<br>2.光纤传输系统的中继距离可达100km一上<br>3.ADSL技术具有非对称带宽特性</p>
-<h2 id="宽带城域网技术"><a href="#宽带城域网技术" class="headerlink" title="宽带城域网技术"></a>宽带城域网技术</h2><p>1.网络业务包括多媒体、数据与语音业务<br>2.网络服务质量表现在延时、抖动、吞吐量与丢包率<br>3.网络服务质量保障技术主要有RSVP、DiffServ与MPLS<br>4.宽带城域网对汇集层及其以上设备采取外带管理，而对汇聚层以下采用袋内管理</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/10/计算机三级网络技术选择题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1081,6 +1334,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">悦读</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
