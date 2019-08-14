@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>PHP与数据库 | Aq407</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PHP连接数据库1234567$dbhost = &amp;apos;127.0.0.1&amp;apos;; //服务器地址$dbuser = &amp;apos;root&amp;apos;; //数据库账号$dbpass = &amp;apos;&amp;apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &amp;apos;student&amp;apos;; //数据库名称$conn =ne">
+  <meta name="description" content="PHP连接数据库1234567$dbhost = &apos;127.0.0.1&apos;; //服务器地址$dbuser = &apos;root&apos;; //数据库账号$dbpass = &apos;&apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &apos;student&apos;; //数据库名称$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP与数据库">
 <meta property="og:url" content="http://yoursite.com/2019/04/14/PHP与数据库/index.html">
 <meta property="og:site_name" content="Aq407">
-<meta property="og:description" content="PHP连接数据库1234567$dbhost = &amp;apos;127.0.0.1&amp;apos;; //服务器地址$dbuser = &amp;apos;root&amp;apos;; //数据库账号$dbpass = &amp;apos;&amp;apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &amp;apos;student&amp;apos;; //数据库名称$conn =ne">
+<meta property="og:description" content="PHP连接数据库1234567$dbhost = &apos;127.0.0.1&apos;; //服务器地址$dbuser = &apos;root&apos;; //数据库账号$dbpass = &apos;&apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &apos;student&apos;; //数据库名称$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-14T16:20:34.260Z">
+<meta property="og:updated_time" content="2019-08-14T15:34:49.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP与数据库">
-<meta name="twitter:description" content="PHP连接数据库1234567$dbhost = &amp;apos;127.0.0.1&amp;apos;; //服务器地址$dbuser = &amp;apos;root&amp;apos;; //数据库账号$dbpass = &amp;apos;&amp;apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &amp;apos;student&amp;apos;; //数据库名称$conn =ne">
+<meta name="twitter:description" content="PHP连接数据库1234567$dbhost = &apos;127.0.0.1&apos;; //服务器地址$dbuser = &apos;root&apos;; //数据库账号$dbpass = &apos;&apos;; //数据库密码$CREATR DATABASE student //创建数据库$dbname = &apos;student&apos;; //数据库名称$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname">
   
     <link rel="alternative" href="/atom.xml" title="Aq407" type="application/atom+xml">
   
@@ -174,9 +174,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="PHP连接数据库"><a href="#PHP连接数据库" class="headerlink" title="PHP连接数据库"></a>PHP连接数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$dbhost = &apos;127.0.0.1&apos;; //服务器地址</span><br><span class="line">$dbuser = &apos;root&apos;; //数据库账号</span><br><span class="line">$dbpass = &apos;&apos;; //数据库密码</span><br><span class="line">$CREATR DATABASE student //创建数据库</span><br><span class="line">$dbname = &apos;student&apos;; //数据库名称</span><br><span class="line">$conn =new mysqli($dbhost,$dbuser,$dbpass,$dbname) or die(&quot;提示：数据库连接失败！&quot;);</span><br><span class="line">mysqli_set_charset($conn,&apos;utf8&apos;); //指定编码</span><br></pre></td></tr></table></figure>
-<h2 id="插入数据-增"><a href="#插入数据-增" class="headerlink" title="插入数据(增)"></a>插入数据(增)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;INSERT INTO pepo (ID, name, age,sex,city)</span><br><span class="line">VALUES (1, &apos;mengmeng&apos;, 33,&apos;男&apos;,&apos;北京&apos;)&quot;; //插入的数据</span><br></pre></td></tr></table></figure>
-<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;delete from pepo where id = $id&quot;;//pepo数据表，id = $id删除条件</span><br></pre></td></tr></table></figure>
+        <h2 id="PHP连接数据库"><a href="#PHP连接数据库" class="headerlink" title="PHP连接数据库"></a>PHP连接数据库</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$dbhost = <span class="string">'127.0.0.1'</span>; <span class="comment">//服务器地址</span></span><br><span class="line">$dbuser = <span class="string">'root'</span>; <span class="comment">//数据库账号</span></span><br><span class="line">$dbpass = <span class="string">''</span>; <span class="comment">//数据库密码</span></span><br><span class="line">$CREATR DATABASE student <span class="comment">//创建数据库</span></span><br><span class="line">$dbname = <span class="string">'student'</span>; <span class="comment">//数据库名称</span></span><br><span class="line">$conn =<span class="keyword">new</span> mysqli($dbhost,$dbuser,$dbpass,$dbname) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"提示：数据库连接失败！"</span>);</span><br><span class="line">mysqli_set_charset($conn,<span class="string">'utf8'</span>); <span class="comment">//指定编码</span></span><br></pre></td></tr></table></figure>
+<h2 id="插入数据-增"><a href="#插入数据-增" class="headerlink" title="插入数据(增)"></a>插入数据(增)</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">"INSERT INTO pepo (ID, name, age,sex,city)</span></span><br><span class="line"><span class="string">VALUES (1, 'mengmeng', 33,'男','北京')"</span>; <span class="comment">//插入的数据</span></span><br></pre></td></tr></table></figure>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">"delete from pepo where id = $id"</span>;<span class="comment">//pepo数据表，id = $id删除条件</span></span><br></pre></td></tr></table></figure>
       
 
       

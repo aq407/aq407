@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Aq407">
 <meta property="og:description" content="面试题集合 ·spring bean生命周期：    BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(sett">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-14T15:16:15.854Z">
+<meta property="og:updated_time" content="2019-08-14T15:21:14.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试集合">
 <meta name="twitter:description" content="面试题集合 ·spring bean生命周期：    BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(sett">
@@ -192,28 +192,57 @@
 
 DispatcherServlet 前置控制器 -&gt; HandlerMapping 请求映射（到Controller）-&gt;  HandlerAdapter 请求映射（到Controller类的方法上）
 -&gt;Controller 控制器 -&gt;  HandlerIntercepter 拦截器 -&gt; ViewResolver 视图映射 -&gt; View 视图处理
-</code></pre><p>·Object常见方法：<br>    toString：返回改对象的字符串对象,返回类型String<br>    hashCode：将对象的16进制地址值经，过哈希算法换算成整值，返回类型int<br>    equals：比较两个对象的地址值是否相等，返回值类型boolean<br>    getClass：获取改对象的字节码文件(该对象运行时的类)，返回Class&lt;?&gt;</p>
-<p>解释下Servlet的生命周期：<br>    加载和实例化、初始化、服务、销毁。</p>
-<p>·java基础</p>
-<p>重载和重写的区别：<br>    重载：方法名必须相同，参数不同<br>    重写：方法名和参数必须相同</p>
-<p>字符型常量 和 字符串 常量的区别：<br>    字符型常量：以单引号引起的一个字符<br>    字符串常量：以双引号引起的数据</p>
-<p>拆箱和装箱：<br>    装箱：把数据类型自动转换为对应的对象包装类型<br>    拆箱：将对象包装类型转换成基本数据类型</p>
-<p>java不支持多继承<br>    每个类都只能继承一个类，但是可以实现多个接口。<br>    java实现多继承有两种方式，一是接口，二是内部类</p>
-<p>String, StringBuffer StringBuilder的区别：<br>    String的长度是不可改变的<br>    StringBuffer的长度是可变的，线程安全<br>    如果一个字符串经常要改变就一定不要用String，否则会创建许多无用的对象出来</p>
-<p>servlet的生命周期：<br>    加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;摧毁</p>
-<p>doGet()方法和doPost（）方法的区别:<br>    doGet：路径传参，并且请求中的参数值是可见的。效率高，安全性差<br>    doPOST：实体传参，对外部客户端是不可见的。效率第，安全性好。</p>
-<p>cookie和session：<br>    cookie的数据信息存放在客户端浏览器上。Cookie是客户端技术，程序把每个用户的数据以cookie的形式写给用户各自的浏览器。</p>
-<pre><code>session的数据信息存放在服务器上。
+</code></pre><p>·Object常见方法：</p>
+<pre><code>toString：返回改对象的字符串对象,返回类型String
+hashCode：将对象的16进制地址值经，过哈希算法换算成整值，返回类型int
+equals：比较两个对象的地址值是否相等，返回值类型boolean
+getClass：获取改对象的字节码文件(该对象运行时的类)，返回Class&lt;?&gt;
+</code></pre><p>解释下Servlet的生命周期：</p>
+<pre><code>加载和实例化、初始化、服务、销毁。
+</code></pre><p>·java基础</p>
+<p>重载和重写的区别：</p>
+<pre><code>重载：方法名必须相同，参数不同
+重写：方法名和参数必须相同
+</code></pre><p>字符型常量 和 字符串 常量的区别：</p>
+<pre><code>字符型常量：以单引号引起的一个字符
+字符串常量：以双引号引起的数据
+</code></pre><p>拆箱和装箱：</p>
+<pre><code>装箱：把数据类型自动转换为对应的对象包装类型
+拆箱：将对象包装类型转换成基本数据类型
+</code></pre><p>java不支持多继承：</p>
+<pre><code>每个类都只能继承一个类，但是可以实现多个接口。
+java实现多继承有两种方式，一是接口，二是内部类
+</code></pre><p>String, StringBuffer StringBuilder的区别：</p>
+<pre><code>String的长度是不可改变的
+StringBuffer的长度是可变的，线程安全
+如果一个字符串经常要改变就一定不要用String，否则会创建许多无用的对象出来
+</code></pre><p>servlet的生命周期：</p>
+<pre><code>加载--&gt;实例化--&gt;初始化--&gt;服务--&gt;摧毁
+</code></pre><p>doGet()方法和doPost（）方法的区别:</p>
+<pre><code>doGet：路径传参，并且请求中的参数值是可见的。效率高，安全性差
+doPOST：实体传参，对外部客户端是不可见的。效率第，安全性好。
+</code></pre><p>cookie和session：</p>
+<pre><code>cookie的数据信息存放在客户端浏览器上。Cookie是客户端技术，程序把每个用户的数据以cookie的形式写给用户各自的浏览器。
+
+session的数据信息存放在服务器上。
 </code></pre><p>springboot和spring的区别:<br>     java在集成spring等框架需要作出大量的配置,开发效率低,繁琐.所以官方提出 spring boot的核心思想:习惯优于配置.可以快速创建开发基于spring框架的项目.或者支持可以不用或很少的spring配置即可.</p>
-<p>springboot的核心功能与使用优点<br>    核心功能：<br>        独立运行Spring项目：<br>            Spring Boot 可以以jar 包的形式独立运行，运行一个Spring Boot 项目只需通过java –jarxx.jar 来运行。<br>        内嵌servlet容器：<br>            Spring Boot 可选择内嵌Tomcat、Jetty 或者Undertow<br>        自动配置：<br>            针对很多Spring应用程序和常见的应用功能，springboot能自动提供配置</p>
-<pre><code>使用优点：
+<p>springboot的核心功能与使用优点<br>    核心功能：</p>
+<pre><code>    独立运行Spring项目：
+        Spring Boot 可以以jar 包的形式独立运行，运行一个Spring Boot 项目只需通过java –jarxx.jar 来运行。
+    内嵌servlet容器：
+        Spring Boot 可选择内嵌Tomcat、Jetty 或者Undertow 
+    自动配置：
+        针对很多Spring应用程序和常见的应用功能，springboot能自动提供配置
+
+使用优点：
     快速搭建项目
     与主流框架集成无需配置集成
     内嵌服务容器
     具有应用监控
     开发部署方便
-</code></pre><p>application.properties配置文件：<br>    application.properties为boot项目中的一个系统自带的全局属性配置文件</p>
-
+</code></pre><p>application.properties配置文件：</p>
+<pre><code>application.properties为boot项目中的一个系统自带的全局属性配置文件
+</code></pre>
       
 
       
