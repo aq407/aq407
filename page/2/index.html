@@ -152,6 +152,371 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JDBC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/JDBC/">JDBC</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/12/JDBC/" class="archive-article-date">
+  	<time datetime="2019-05-12T06:02:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="初始化驱动"><a href="#初始化驱动" class="headerlink" title="初始化驱动"></a>初始化驱动</h2><p>初始化驱动前要先导入mysql-jdbc的jar包</p>
+<p>通过<font color="red">Class.forName(“com.mysql.jdbc.Driver”)</font><br>初始化驱动类com.mysql.jdbc.Driver</p>
+<font color="red">新版的驱动为com.mysql.cj.jdbc.Driver</font>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Testjdbc &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">              Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">              System.out.println(&quot;驱动加载成功&quot;);</span><br><span class="line">            &#125;catch (ClassNotFoundException e)&#123; </span><br><span class="line">	</span><br><span class="line">             System.out.println(&quot;数据库加载失败&quot;);</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在mysql中创建数据库"><a href="#在mysql中创建数据库" class="headerlink" title="在mysql中创建数据库"></a>在mysql中创建数据库</h2><p>打开cmd，切换到mysql的bin目录下</p>
+<p><code>net start mysql</code> //启动mysql服务</p>
+<p><code>mysql -u root -p</code> //建立连接，输入密码</p>
+<p><code>CREATE DATABASE 数据库名; //创建数据库</code></p>
+<p><code>CREATE DATABASE</code>test2<code>DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci 创建数据库并指定字符集</code></p>
+<h2 id="建立数据库连接"><a href="#建立数据库连接" class="headerlink" title="建立数据库连接"></a>建立数据库连接</h2><p>建立与数据库的Connection连接需要提供：<br>数据库地址及端口:jdbc:mysql://127.0.0.1:3306/Test?characterEncoding=UTF-8<br>数据库名称:Test<br>编码方式:UTF-8<br>账号和密码</p>
+<font color="red">新版url为:jdbc:mysql://127.0.0.1:3306/community?serverTimezone=UTC&amp;characterEncoding=UTF-8</font><br><font color="red">这一步要执行需要建立在mysql中有数据库的基础上</font>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">  </span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">		String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?characterEncoding=UTF-8&quot;;</span><br><span class="line">		String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line">  </span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">            Connection c = DriverManager</span><br><span class="line">                    .getConnection(url,user,password);</span><br><span class="line">  </span><br><span class="line">            System.out.println(&quot;连接成功，获取连接对象： &quot; + c);</span><br><span class="line">  </span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            // TODO Auto-generated catch block</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>先创建数据表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE user_table(</span><br><span class="line">    user_name VARCHAR(30),</span><br><span class="line">    user_sex varchar(4),</span><br><span class="line">    user_age int</span><br><span class="line">)ENGINE = InnoDB DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection con= null;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            System.out.println(&quot;驱动加载成功&quot;);</span><br><span class="line">            con = DriverManager.getConnection(url,user,password);</span><br><span class="line">            System.out.println(&quot;数据库连接成功&quot; + con);</span><br><span class="line"></span><br><span class="line">            Statement s = con.createStatement();//Statement是用于执行SQL语句</span><br><span class="line">            String sql = &quot;insert into user_table value (&apos;迪莫&apos;,&apos;男&apos;,10)&quot;;</span><br><span class="line">            s.execute(sql);//执行sql语句</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;插入成功&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(&quot;驱动加载失败&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            System.out.println(&quot;数据库连接失败&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关闭连接"><a href="#关闭连接" class="headerlink" title="关闭连接"></a>关闭连接</h2><p>数据库连接资源有限，操作结束后先关闭Statement，后关闭Connection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">finally &#123;</span><br><span class="line">            if (s != null)&#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    s.close();</span><br><span class="line">                &#125; catch (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (con != null)&#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    con.close();</span><br><span class="line">                &#125; catch (SQLException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用try-with-resource的方式自动关闭连接"><a href="#使用try-with-resource的方式自动关闭连接" class="headerlink" title="使用try-with-resource的方式自动关闭连接"></a>使用try-with-resource的方式自动关闭连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try (</span><br><span class="line">               Connection con = DriverManager.getConnection(url,user,password);</span><br><span class="line">               Statement s = con.createStatement();</span><br><span class="line"></span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">            &#123;</span><br><span class="line">                String sql = &quot;insert into user_table value (&apos;迪莫&apos;,&apos;男&apos;,10)&quot;;</span><br><span class="line">                s.execute(sql);</span><br><span class="line">            &#125;catch(SQLException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p><code>delete from 表名 where 删除条件;</code> //mysql删除语句<br><code>truncate table 表名;</code> //删除表内所有数据</p>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p><code>update user_table set user_name = &#39;散&#39; where id=2</code> //user_table表名，user_name要修改的字段名, ‘散’：要修改的信息，id=2,修改条件，修改id=2的数据</p>
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class Testjdbc &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String url = &quot;jdbc:mysql://127.0.0.1:3306/Test?serverTimezone=UTC&amp;characterEncoding=UTF-8&quot;;</span><br><span class="line">        String user = &quot;root&quot;;</span><br><span class="line">        String password = &quot;525432&quot;;</span><br><span class="line"></span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            System.out.println(&quot;加载驱动成功&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(&quot;加载驱动成功&quot;);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try (</span><br><span class="line">                Connection con = DriverManager.getConnection(url,user,password);</span><br><span class="line">                Statement s = con.createStatement();</span><br><span class="line">             )</span><br><span class="line">        &#123;</span><br><span class="line">            String sql = &quot;select * from user_table&quot;;</span><br><span class="line"></span><br><span class="line">            ResultSet rs = s.executeQuery(sql);//将查询结果集返回给resultset</span><br><span class="line"></span><br><span class="line">            while(rs.next())&#123;</span><br><span class="line">                int id = rs.getInt(&quot;id&quot;);</span><br><span class="line">                String name = rs.getString(&quot;user_name&quot;);</span><br><span class="line">                String sex = rs.getString(&quot;user_sex&quot;);</span><br><span class="line">                int age = rs.getInt(&quot;user_age&quot;);</span><br><span class="line">                System.out.print(id+&quot; &quot;);</span><br><span class="line">                System.out.print(name+&quot; &quot;);</span><br><span class="line">                System.out.print(sex+&quot; &quot;);</span><br><span class="line">                System.out.println(age+&quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/12/JDBC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-python爬虫-Beautiful-Soup库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/11/python爬虫-Beautiful-Soup库/">python爬虫-Beautiful Soup库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/11/python爬虫-Beautiful-Soup库/" class="archive-article-date">
+  	<time datetime="2019-05-11T06:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Beautiful Soup库是解析、遍历、维护“标签树”的功能库</p>
+<h2 id="Beautiful-Soup库的导入"><a href="#Beautiful-Soup库的导入" class="headerlink" title="Beautiful Soup库的导入"></a>Beautiful Soup库的导入</h2><p><code>from bs4 import BeautifulSoup</code></p>
+<h2 id="获取title的方法"><a href="#获取title的方法" class="headerlink" title="获取title的方法"></a>获取title的方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">soup = BeautifulSoup(demo,&quot;html.parser&quot;) #html.parser是html解析器</span><br><span class="line">soup.title</span><br></pre></td></tr></table></figure>
+<h2 id="获取中的内容"><a href="#获取中的内容" class="headerlink" title="获取中的内容"></a>获取<a>中的内容</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">soup.a #只能获取第一个a标签内容</span><br><span class="line"></span><br><span class="line">soup.a.name #a标签的名字</span><br><span class="line">soup.a.parent.name #a标签的父级标签</span><br></pre></td></tr></table></figure>
+<h2 id="获取标签的属性"><a href="#获取标签的属性" class="headerlink" title="获取标签的属性"></a>获取标签的属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = &quot;https://python123.io/ws/demo.html&quot;</span><br><span class="line">r = requests.get(&quot;url&quot;)</span><br><span class="line">demo = r.text</span><br><span class="line">tag = soup.a</span><br><span class="line">tag.attrs #以字典的形式返回</span><br><span class="line"></span><br><span class="line">tag.attrs[&apos;href&apos;] #获取a标签的链接属性</span><br><span class="line"></span><br><span class="line">tag.string #获取a标签包含的内容信息</span><br></pre></td></tr></table></figure>
+<h2 id="基于bs4库的HTML内容遍历方法"><a href="#基于bs4库的HTML内容遍历方法" class="headerlink" title="基于bs4库的HTML内容遍历方法"></a>基于bs4库的HTML内容遍历方法</h2><p>标签树的下行遍历:</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.contents</td>
+<td style="text-align:center">子节点的列表，将<tag>所有儿子节点存入列表</tag></td>
+</tr>
+<tr>
+<td>.childern</td>
+<td style="text-align:center">子节点的迭代类型,与contents类似，用于循环遍历儿子节点</td>
+</tr>
+<tr>
+<td>.descendants</td>
+<td style="text-align:center">子孙节点的迭代类型，包含所有子孙节点，用于遍历循环</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">遍历子节点</span><br><span class="line">for child in soup.body.childern:</span><br><span class="line">	print(child)</span><br></pre></td></tr></table></figure>
+<h2 id="标签树的上行遍历"><a href="#标签树的上行遍历" class="headerlink" title="标签树的上行遍历"></a>标签树的上行遍历</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.parent</td>
+<td style="text-align:center">节点的父标签</td>
+</tr>
+<tr>
+<td>.parents</td>
+<td style="text-align:center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="标签树的平行遍历"><a href="#标签树的平行遍历" class="headerlink" title="标签树的平行遍历"></a>标签树的平行遍历</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.next_sibling</td>
+<td style="text-align:center">返回按照HTML文本顺序的下一个平行节点标签</td>
+</tr>
+<tr>
+<td>.previous_sibling</td>
+<td style="text-align:center">返回按照HTML文本顺序的上一个平行节点标签</td>
+</tr>
+<tr>
+<td>.next_siblings</td>
+<td style="text-align:center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
+</tr>
+<tr>
+<td>.previous_siblings</td>
+<td style="text-align:center">迭代类型，返回按照HTML文本顺序的前续所有平台节点标签</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基于bas4库的HTML格式化和编码"><a href="#基于bas4库的HTML格式化和编码" class="headerlink" title="基于bas4库的HTML格式化和编码"></a>基于bas4库的HTML格式化和编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license()&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; from bs4 import BeautifulSoup</span><br><span class="line">&gt;&gt;&gt; import requests</span><br><span class="line">&gt;&gt;&gt; r = requests.get(&quot;http://python123.io/ws/demo.html&quot;)</span><br><span class="line">&gt;&gt;&gt; demo = r.text</span><br><span class="line">&gt;&gt;&gt; demo</span><br><span class="line">&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;This is a python demo page&lt;/title&gt;&lt;/head&gt;\r\n&lt;body&gt;\r\n</span><br><span class="line">&lt;p class=&quot;title&quot;&gt;&lt;b&gt;The demo python introduces several python courses.&lt;/b&gt;&lt;/p&gt;\r\n</span><br><span class="line">&lt;p class=&quot;course&quot;&gt;Python is a wonderful general-purpose programming language. </span><br><span class="line">You can learn Python from novice to professional by tracking the following courses:\r\n</span><br><span class="line">&lt;a href=&quot;http://www.icourse163.org/course/BIT-268001&quot; class=&quot;py1&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">Basic Python&lt;/a&gt; and &lt;a href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot;</span><br><span class="line">class=&quot;py2&quot; id=&quot;link2&quot;&gt;Advanced Python&lt;/a&gt;.&lt;/p&gt;\r\n&lt;/body&gt;&lt;/html&gt;&apos;</span><br><span class="line"> </span><br><span class="line">soup = BeautifulSoup(demo,&quot;html.parser&quot;)</span><br><span class="line">print(soup.prettify())</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;title&gt;</span><br><span class="line">   This is a python demo page</span><br><span class="line">  &lt;/title&gt;</span><br><span class="line"> &lt;/head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;p class=&quot;title&quot;&gt;</span><br><span class="line">   &lt;b&gt;</span><br><span class="line">    The demo python introduces several python courses.</span><br><span class="line">   &lt;/b&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;p class=&quot;course&quot;&gt;</span><br><span class="line">   Python is a wonderful general-purpose programming language. You can learn Python from novice to professional by tracking the following courses:</span><br><span class="line">   &lt;a class=&quot;py1&quot; href=&quot;http://www.icourse163.org/course/BIT-268001&quot; id=&quot;link1&quot;&gt;</span><br><span class="line">    Basic Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   and</span><br><span class="line">   &lt;a class=&quot;py2&quot; href=&quot;http://www.icourse163.org/course/BIT-1001870001&quot; id=&quot;link2&quot;&gt;</span><br><span class="line">    Advanced Python</span><br><span class="line">   &lt;/a&gt;</span><br><span class="line">   .</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line"> &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/11/python爬虫-Beautiful-Soup库/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-python爬虫-requests" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/09/python爬虫-requests/">python爬虫--requests</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/09/python爬虫-requests/" class="archive-article-date">
+  	<time datetime="2019-05-09T14:25:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="requests语法"><a href="#requests语法" class="headerlink" title="requests语法"></a>requests语法</h2><p>requests.get(url,params=Mpme,<strong>kwargs)<br>url:拟获取页面的url连接<br>params：url中的额外参数，字典或字节流格式，可选
+</strong>kwargs:12个控制访问的参数</p>
+<p>例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line">r = requests.get(&quot;http://www.baidu.com&quot;)</span><br><span class="line">print(r.status_code)#r.status_code是HTTP请求的返回状态，200表示连接，其他失败</span><br><span class="line">print(&quot;\n&quot;)</span><br><span class="line">print(r.text)</span><br><span class="line">print(r.encoding) #从HTTP header中猜测的响应内容编码方式，如果header中不存在charset则默认ISO-8859-1</span><br><span class="line">print(r.apparent_encoding) #从内容中分析出的响应内容编码方式,根据网页内容分析出的编码方式</span><br><span class="line"></span><br><span class="line">r.encoding = &apos;utf-8&apos;</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure></p>
+<h2 id="requests库的异常"><a href="#requests库的异常" class="headerlink" title="requests库的异常"></a>requests库的异常</h2><p>requests.ConnectionError:网络连接错误异常,入DNS查询失败，拒绝连接等<br>requests.HTTPError:HTTP错误异常<br>requests.URL.Required:URL缺失异常<br>Required.TooManyRedirects:超过最大重定向次数，产生重定向异常<br>requests.ConnectionTimeout:连接远程服务器超时异常<br>requests.Timeout:请求url超时，产生超时异常</p>
+<p>r.raise_for_status():如果不是200,产生异常 requests.HTTPError</p>
+<h2 id="爬取网页的通用代码框架"><a href="#爬取网页的通用代码框架" class="headerlink" title="爬取网页的通用代码框架"></a>爬取网页的通用代码框架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def getHTMLText(url):</span><br><span class="line">	try:</span><br><span class="line">		r = requests.get(url,timeout=30)</span><br><span class="line">		r.raise_for_status();#如果状态不是200引发HTTPError异常</span><br><span class="line">		r.encoding = r.apparent_encoding</span><br><span class="line">		return r.text</span><br><span class="line">	except:</span><br><span class="line">		return &quot;产生异常&quot;</span><br><span class="line">		</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">	url = &quot;http://www.baidu.com&quot;</span><br><span class="line">	print(getHTMLText(url))</span><br></pre></td></tr></table></figure>
+<h2 id="HTTP协议及Requests库方法"><a href="#HTTP协议及Requests库方法" class="headerlink" title="HTTP协议及Requests库方法"></a>HTTP协议及Requests库方法</h2><p>HTTP协议：<br>         URL格式 <a href="http://host[:port][path]" target="_blank" rel="noopener">http://host[:port][path]</a><br>         host:合法的Internet主机域名或ip地址<br>         port:端口号，缺省端口为80<br>         path：请求资源的路径</p>
+<h2 id="HTTP协议对资源的操作"><a href="#HTTP协议对资源的操作" class="headerlink" title="HTTP协议对资源的操作"></a>HTTP协议对资源的操作</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td style="text-align:center">请求获取url位置的资源</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td style="text-align:center">请求获取URL位置资源的响应信息报告，即获得该资源的头部信息</td>
+</tr>
+<tr>
+<td>POST</td>
+<td style="text-align:center">请求URL位置的资源后附加的新的数据</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td style="text-align:center">请求向URL未知存储一个资源，覆盖元URL位置的资源</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td style="text-align:center">请求局部更新URL位置的资源，即改变该处资源的部分内容</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:center">请求删除URL位置存储的资源</td>
+</tr>
+</tbody>
+</table>
+<h2 id="HTTP协议与Requests库"><a href="#HTTP协议与Requests库" class="headerlink" title="HTTP协议与Requests库"></a>HTTP协议与Requests库</h2><table>
+<thead>
+<tr>
+<th>HTTP协议方法</th>
+<th style="text-align:center">Requests库方法</th>
+<th style="text-align:right">功能一致性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td style="text-align:center">requests.get()</td>
+<td style="text-align:right">一致</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td style="text-align:center">requests.head()</td>
+<td style="text-align:right">一致</td>
+</tr>
+<tr>
+<td>POST</td>
+<td style="text-align:center">requests.post()</td>
+<td style="text-align:right">一致</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td style="text-align:center">requests.put()</td>
+<td style="text-align:right">一致</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td style="text-align:center">requests.patch()</td>
+<td style="text-align:right">一致</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td style="text-align:center">requests.delete()</td>
+<td style="text-align:right">一致</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实例网络图片爬取和存储"><a href="#实例网络图片爬取和存储" class="headerlink" title="实例网络图片爬取和存储"></a>实例网络图片爬取和存储</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import os #os 模块提供了非常丰富的方法用来处理文件和目录</span><br><span class="line">url = &quot;https://cdn.pixabay.com/photo/2019/03/08/21/13/record-4043223_960_720.jpg&quot;</span><br><span class="line">root = &quot;D://pices//&quot;</span><br><span class="line">path = root + url.split(&apos;/&apos;)[-1] #以/为分割符保留最后一段</span><br><span class="line">try:</span><br><span class="line">	if not os.path.exists(root):</span><br><span class="line">		os.mkdir(root)</span><br><span class="line">	if not os.path.exists(path):</span><br><span class="line">		r = requests.get(url)</span><br><span class="line">		with open(path,&apos;wb&apos;) as f:</span><br><span class="line">		f.write(r.content)</span><br><span class="line">		f.close()</span><br><span class="line">		print(&quot;文件保存成功&quot;)</span><br><span class="line">	else:</span><br><span class="line">		print(&quot;文件已存在&quot;)</span><br><span class="line">except:</span><br><span class="line">	print(&quot;爬取失败&quot;)</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/09/python爬虫-requests/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java-ee之session和cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -619,280 +984,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/03/10/计算机三级网络技术选择题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ip地址的计算方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/ip地址的计算方法/">ip地址的计算方法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/05/ip地址的计算方法/" class="archive-article-date">
-  	<time datetime="2019-03-05T13:17:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="求网络地址："><a href="#求网络地址：" class="headerlink" title="求网络地址："></a>求网络地址：</h2><p>将IP地址和子网掩码转换成二进制，进行与运算，结果转换成十进制就是网络地址</p>
-<hr>
-<h2 id="求广播地址："><a href="#求广播地址：" class="headerlink" title="求广播地址："></a>求广播地址：</h2><p>子网掩码“取反”运算，然后与网络地址进行“或”运算，得到广播地址</p>
-<h2 id="ip地址聚合后可用的地址数："><a href="#ip地址聚合后可用的地址数：" class="headerlink" title="ip地址聚合后可用的地址数："></a>ip地址聚合后可用的地址数：</h2><p>（32-聚合后子网掩码）^2-2,例如：子网掩码为/26,则可以地址数=（32-26）^2-2=62</p>
-<h2 id="ip地址分类"><a href="#ip地址分类" class="headerlink" title="ip地址分类"></a>ip地址分类</h2><p>A类：1-127<br>B类：128-191<br>C类：192-223</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/ip地址的计算方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-交换机及其配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/交换机及其配置/">交换机及其配置</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/02/交换机及其配置/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:13:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Cisco-IOS"><a href="#Cisco-IOS" class="headerlink" title=" Cisco IOS:"></a><font color="#dd0000"> Cisco IOS:</font></h2><p><code>Switch-4507&gt;enable</code> 进入特权模式</p>
-<p><code>Password:*****</code> 输入特权模式密码</p>
-<p><code>Switch-4507#configure terminal</code> 进入全局配置</p>
-<p><code>Switch-4507(config)#ip http server</code> 启动HTTP服务</p>
-<hr>
-<h2 id="CatOS"><a href="#CatOS" class="headerlink" title=" CatOS:"></a><font color="#dd0000"> CatOS:</font></h2><p><code>Swith-6509&gt;enable</code> 进入配置模式</p>
-<p><code>Password:*****</code> 输入配置模式密码</p>
-<p><code>Swith-6509&gt;(enbale)set ip http server enable</code> 启动HTTP服务</p>
-<p><code>Swith-6509&gt;(enable)</code> </p>
-<hr>
-<h2 id="VLAN的建立与删除"><a href="#VLAN的建立与删除" class="headerlink" title="VLAN的建立与删除"></a>VLAN的建立与删除</h2><p>命令格式: <code>valn &lt;valn_ID&gt;name&lt;valn_name&gt;</code><br>例如: <code>Switch-3528-TEST(vlan)#vlan 100 name vlanwork</code> (建立VLAN 100 , 名称为vlanwork)</p>
-<p>命令格式: <code>set vlan&lt;vlan ID&gt;name&lt;vlan_name&gt;</code><br>例如：<code>Switch-6509-TEST&gt;(enable) set vlan 100 name vlan100</code> (建立VLAN 100,名称为vlan100)</p>
-<h2 id="分配交换机端口到VLAN中"><a href="#分配交换机端口到VLAN中" class="headerlink" title="分配交换机端口到VLAN中"></a>分配交换机端口到VLAN中</h2><p>命令格式：<code>switchport access vlan &lt;vlan ID&gt;</code><br>例如：<code>Switch-3528-TEST (config-if)# switchport access vlan 100</code> (将端口f0/1划分到VLAN 100中)</p>
-<p>命令格式：<code>set vlan&lt;vlan ID&gt;&lt;mod/port&gt;</code><br>例如：<code>Switch-6509-TEST&gt;(enable) set vlan 100 0/1</code> (将端口0/1划分到VLAN 100中)</p>
-<hr>
-<h2 id="VLAN-Trunk的配置"><a href="#VLAN-Trunk的配置" class="headerlink" title="VLAN Trunk的配置"></a>VLAN Trunk的配置</h2><ol>
-<li><p><code>Switch-3528-TEST (config-if)# switchport mode trunk</code></p>
-</li>
-<li><p>封装VLAN协议。<br><code>Switch-3528-TEST (config-if)# switchport trunk encapsulation dot1q</code><br>(配置VLAN Trunk的封装模式为802.1q)</p>
-</li>
-<li><p>设置允许中继的VLAN<br><code>Switch-3528-TEST (config-if)# switchport trunk allowed vlan 1,10 (1-10)</code><br>(允许VLAN 1和VLAN 10通过Trunk通路)</p>
-</li>
-</ol>
-<p><code>Switch-3528-TEST (config-if)#switchport trunk allowed vlan except 11-20</code><br>(不允许通过Trunk通路)</p>
-<hr>
-<h2 id="65系列配置VLAN-Trunk模式，封装VLAN协议"><a href="#65系列配置VLAN-Trunk模式，封装VLAN协议" class="headerlink" title="65系列配置VLAN Trunk模式，封装VLAN协议"></a>65系列配置VLAN Trunk模式，封装VLAN协议</h2><p>命令格式：set trunk&lt;mod/port&gt;<mode><type><br>例如：<code>Switch-6509-TEST&gt; (enable) set trunk 1/24 on dot1q</code></type></mode></p>
-<p>允许中继的VLAN,命令格式: <code>set trunk &lt;mod/port&gt; vlan &lt;vlan&gt;</code><br>例如：<code>Switch-6509-TEST&gt; (enable) set trunk 1/24 vlan 11-20</code></p>
-<h2 id="在端口1-24的允许VLAN的列表中添加11-20号vlan"><a href="#在端口1-24的允许VLAN的列表中添加11-20号vlan" class="headerlink" title="(在端口1/24的允许VLAN的列表中添加11~20号vlan)"></a>(在端口1/24的允许VLAN的列表中添加11~20号vlan)</h2><h2 id="VTP配置"><a href="#VTP配置" class="headerlink" title="VTP配置"></a>VTP配置</h2><p>1.配置VTP域名<br><code>Switch-3528-TEST # configure terminal</code> (进入工作模式)</p>
-<p><code>Switch-3528-TEST (config)# vtp domain TEST</code><br>(设置VTP域名为TEST，同一个域的所有交换机，必须设置相同的域名，同时VTP协议的版本号必须一致)</p>
-<p>2.配置VTP工作模式<br><code>Switch-3528-TEST(config)# vtp mode server</code><br><code>Switch-3528-TEST(config)# vtp mode client</code><br><code>Switch-3528-TEST(config)# vtp mode transparent</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/02/交换机及其配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-路由器及其配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/路由器及其配置/">路由器及其配置</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/02/路由器及其配置/" class="archive-article-date">
-  	<time datetime="2019-03-02T05:59:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="路由器协议管理距离"><a href="#路由器协议管理距离" class="headerlink" title=" 路由器协议管理距离 "></a><font color="#dd0000"> 路由器协议管理距离 </font></h2><p>直接连接:0<br>静态链接:1<br>外部 BGP:20<br>内部 EIGRP:90<br>IGRP:100<br>OSPF:110<br>RIP:120<br>外部EIGRP:170<br>内部BGP:200<br>未知:255</p>
-<hr>
-<h2 id="路由器配置常用命令"><a href="#路由器配置常用命令" class="headerlink" title=" 路由器配置常用命令 "></a><font color="#dd0000"> 路由器配置常用命令 </font></h2><p><code>Router#write memory</code> 保存到路由器的 NVRAM中</p>
-<p><code>Router#write network tftp</code> 保存到tftp服务器中</p>
-<p><code>Router#write erase</code> 删除路由器的全部配置</p>
-<p><code>show interface</code> 查看路由器的接口</p>
-<p><code>show running-config</code> 查看路由器的配置 密码 接口 IP地址 ACL NAT</p>
-<p><code>show ip version</code> 查看路由器的版本 配置寄存器的值</p>
-<p><code>show ip route</code> 查看路由表</p>
-<p><code>show ip protocal</code> 查看路由器运行的动态路由协议</p>
-<p><code>(config-if)#crc 32</code> 配置CRC的校验功能</p>
-<p><code>network ip &lt;子网号&gt; &lt;子网掩码的反码&gt; area &lt;区域号&gt;</code> 在OSPF配置模式下</p>
-<p><code>area &lt;区域号&gt; range &lt;子网地址&gt; &lt;子网掩码&gt;</code> 在路由器OSPF的配置模式下，该命令定义某一特定范围子网的聚合</p>
-<p><code>ip dhcp excluded-address</code> 配置子网时，不想要某些IP地址不参与DHCP地址分配</p>
-<p><code>lease</code> 分配IP地址的可持续租用的时间</p>
-<hr>
-<h2 id="路由器pos接口配置"><a href="#路由器pos接口配置" class="headerlink" title="路由器pos接口配置"></a>路由器pos接口配置</h2><p>1.设置pos物理端口的帧类型（sdh或sonet）<br>2.设置pos物理端口的协议封装模式（ppp或chdlc）<br>3.设置pos物理端口的数据帧格式的flag值（0表示SONET帧，2表示SDH帧)(pos framing)<br>4.设置POS物理端口数据帧的CRC校验位数（16位或32位）</p>
-<p><code>#bandwidth</code> + 带宽(单位为kbps，换算为1000)</p>
-<hr>
-<h2 id="动态路由协议OSPF配置-一般与pos接口一起考察"><a href="#动态路由协议OSPF配置-一般与pos接口一起考察" class="headerlink" title="动态路由协议OSPF配置(一般与pos接口一起考察)"></a>动态路由协议OSPF配置(一般与pos接口一起考察)</h2><p>1.network ：该命令用来定义与OSPF的子网地址，格式为:<br><code>network &lt;子网号&gt;&lt;子网掩码的反码&gt;area&lt;区域号&gt;</code></p>
-<p>2.range：该命令用于定义某一特定范围子网的聚合，格式为:<br><code>area&lt;区域号&gt;range&lt;子网地址&gt;&lt;子网掩码&gt;</code></p>
-<p>3.no shutdown (打开端口)</p>
-<p>4.async <font color="#dd0000"> default ip address </font>异步串行接口</p>
-<hr>
-<h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><p>静态路由是在全局配置模式下使用”ip route”命令配置。格式为:<br><code>route&lt;目的网络地址&gt;&lt;子网掩码&gt;&lt;下一跳路由器的IP地址&gt;</code></p>
-<p>默认路由的静态配置方式为:<br><code>ip route 0.0.0.0 0.0.0.0 下一跳路由的ip地址</code></p>
-<h2 id="访问控制列表"><a href="#访问控制列表" class="headerlink" title="访问控制列表"></a>访问控制列表</h2><h2 id="DHCP功能及其配置"><a href="#DHCP功能及其配置" class="headerlink" title="DHCP功能及其配置"></a>DHCP功能及其配置</h2><p>DHCP DISCOVER发现报文，一广播发送该消息，并且将源ip地址设置为0.0.0.0<br>目的地址设置为255.255.255.255</p>
-<p>DHCP OFFER 提供报文 源地址是服务的ip地址 目的ip地址255.255.255.255</p>
-<p>DHCP REQUEST 请求报文 和发现报文的IP地址和目地地址一样</p>
-<p>DHCP ACK  确定报文 和提供报文的源地址和目的地址一样</p>
-<p>protocol 协议</p>
-<p>Source address 源地址</p>
-<p>server ip address 服务器地址</p>
-<p>Destination address 目的地址</p>
-<p>relay agent 中继代理</p>
-<p>Physical Address 物理地址</p>
-<p>client hardware address 客户端硬件地址(物理地址)</p>
-<p>Client address 客户地址</p>
-<p>dhcp Enabled 启动DHCP (yes)</p>
-<h2 id="ip地址池的建立：-16套"><a href="#ip地址池的建立：-16套" class="headerlink" title="ip地址池的建立：(16套)"></a>ip地址池的建立：(16套)</h2><p>全局配置模式下使用：<code>ip dhcp pool&lt;name&gt;</code>命令为地址池赋予一个名称</p>
-<h2 id="ip地址池的子网地址和子网掩码"><a href="#ip地址池的子网地址和子网掩码" class="headerlink" title="ip地址池的子网地址和子网掩码"></a>ip地址池的子网地址和子网掩码</h2><p>配置方法是在ip地址池配置模式下，执行<code>network &lt;网络地址&gt;&lt;子网掩码&gt;</code>命令</p>
-<h2 id="排除不用动态分配的IP地址："><a href="#排除不用动态分配的IP地址：" class="headerlink" title="排除不用动态分配的IP地址："></a>排除不用动态分配的IP地址：</h2><p>全局模式下，使用<code>ip dhcp excluded-address low-address [high-address]</code>命令</p>
-<h2 id="配置默认网关"><a href="#配置默认网关" class="headerlink" title="配置默认网关:"></a>配置默认网关:</h2><p>地址池配置模式下，执行<code>default-router address [addressz...address8]</code>命令为地址池赋予一个名称</p>
-<h2 id="DHCP地址续约"><a href="#DHCP地址续约" class="headerlink" title="DHCP地址续约"></a>DHCP地址续约</h2><p>地址续约当中涉及两种报文类型，即reques和ack报文。</p>
-<p>1.DHCP request报文是有客户机向服务器发送请求，告诉服务器需要续约的地址，其源地址<br>为客户机地址(Client address)，目的地址为服务器地址(server ip address)</p>
-<p>2.DHCP ack报文是服务器向客户机发送确认，告诉客户机同意续约ip地址,</p>
-<font color="#dd0000"> 其源地址为服务器地址，目的地址为客户机地址 </font>
-
-
-<h2 id="思科35系列"><a href="#思科35系列" class="headerlink" title="思科35系列"></a>思科35系列</h2><p><code>Switch-3528-TEST(config)# interface VLAN1</code> VLAN1 是用于设备管理的默认VLAN<br><code>Switch-3528-TEST(config-if)#ip address &lt;管理地址&gt;&lt;子网掩码&gt;</code><br><code>Switch-3528-TEST(config-if)#ip default-gateway&lt;默认网关地址&gt;</code></p>
-<h2 id="思科65系列"><a href="#思科65系列" class="headerlink" title="思科65系列"></a>思科65系列</h2><p>命令格式:<code>set interface sc0&lt;管理地址&gt;&lt;子网掩码&gt;&lt;直接广播地址&gt;</code></p>
-<p>默认(缺省)路由设置:<br>Switch-3528-TEST&gt;(enable)set ip route 0.0.0.0&gt;&lt;默认网关地址&gt;</p>
-<h2 id="路由表出题点："><a href="#路由表出题点：" class="headerlink" title="路由表出题点："></a>路由表出题点：</h2><p>1.connected+端口名(如果是三层交换机，则+虚拟局域网号vlan)<br>2.via+目的网络(IP地址)<br>3.管理距离值(o-110; S-1; B-200)</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/02/路由器及其配置/">展开全文 >></a>
         </p>
       
 
