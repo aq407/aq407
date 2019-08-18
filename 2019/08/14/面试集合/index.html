@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>面试集合 | Aq407</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="面试题集合 ·spring bean生命周期：    BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(sett">
+  <meta name="description" content="面试题集合 ·spring bean生命周期： BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(setter等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试集合">
 <meta property="og:url" content="http://yoursite.com/2019/08/14/面试集合/index.html">
 <meta property="og:site_name" content="Aq407">
-<meta property="og:description" content="面试题集合 ·spring bean生命周期：    BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(sett">
+<meta property="og:description" content="面试题集合 ·spring bean生命周期： BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(setter等">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-14T15:21:14.457Z">
+<meta property="og:updated_time" content="2019-08-16T09:21:02.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试集合">
-<meta name="twitter:description" content="面试题集合 ·spring bean生命周期：    BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(sett">
+<meta name="twitter:description" content="面试题集合 ·spring bean生命周期： BeanNameAware ——&amp;gt;  BeanFactoryAware ——&amp;gt; BeanPostProcessor ——&amp;gt;  InitializingBean、init-method ——&amp;gt;  DisposableBean、destroy-method 实例化bean对象(通过构造方法或者工厂方法)设置对象属性(setter等">
   
     <link rel="alternative" href="/atom.xml" title="Aq407" type="application/atom+xml">
   
@@ -175,8 +175,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>面试题集合</p>
-<p>·spring bean生命周期：<br>    BeanNameAware ——&gt;  BeanFactoryAware ——&gt; BeanPostProcessor ——&gt;  InitializingBean、init-method ——&gt;  DisposableBean、destroy-method</p>
-<p>实例化bean对象(通过构造方法或者工厂方法)<br>设置对象属性(setter等)（依赖注入）<br>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）<br>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身<br>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法<br>调用Bean的初始化方法<br>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法<br>使用Bean<br>容器关闭之前，调用Bean的销毁方法</p>
+<p>·spring bean生命周期：</p>
+<pre><code>BeanNameAware ——&gt;  BeanFactoryAware ——&gt; BeanPostProcessor ——&gt;  InitializingBean、init-method ——&gt;  DisposableBean、destroy-method
+</code></pre><p>实例化bean对象(通过构造方法或者工厂方法)<br>设置对象属性(setter等)（依赖注入）<br>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）<br>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身<br>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法<br>调用Bean的初始化方法<br>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法<br>使用Bean<br>容器关闭之前，调用Bean的销毁方法</p>
 <p>·SpringMVC的处理流程：</p>
 <pre><code>1、url请求
 2、查找映射处理()
@@ -198,7 +199,10 @@ hashCode：将对象的16进制地址值经，过哈希算法换算成整值，�
 equals：比较两个对象的地址值是否相等，返回值类型boolean
 getClass：获取改对象的字节码文件(该对象运行时的类)，返回Class&lt;?&gt;
 </code></pre><p>解释下Servlet的生命周期：</p>
-<pre><code>加载和实例化、初始化、服务、销毁。
+<pre><code>Servlet 通过调用 init () 方法进行初始化。
+Servlet 调用 service() 方法来处理客户端的请求。
+Servlet 通过调用 destroy() 方法终止（摧毁）。
+最后，Servlet 是由 JVM 的垃圾回收器进行垃圾回收的。
 </code></pre><p>·java基础</p>
 <p>重载和重写的区别：</p>
 <pre><code>重载：方法名必须相同，参数不同
@@ -220,13 +224,14 @@ StringBuffer的长度是可变的，线程安全
 <pre><code>加载--&gt;实例化--&gt;初始化--&gt;服务--&gt;摧毁
 </code></pre><p>doGet()方法和doPost（）方法的区别:</p>
 <pre><code>doGet：路径传参，并且请求中的参数值是可见的。效率高，安全性差
-doPOST：实体传参，对外部客户端是不可见的。效率第，安全性好。
+doPOST：实体传参，对外部客户端是不可见的。效率低，安全性好。
 </code></pre><p>cookie和session：</p>
 <pre><code>cookie的数据信息存放在客户端浏览器上。Cookie是客户端技术，程序把每个用户的数据以cookie的形式写给用户各自的浏览器。
 
 session的数据信息存放在服务器上。
-</code></pre><p>springboot和spring的区别:<br>     java在集成spring等框架需要作出大量的配置,开发效率低,繁琐.所以官方提出 spring boot的核心思想:习惯优于配置.可以快速创建开发基于spring框架的项目.或者支持可以不用或很少的spring配置即可.</p>
-<p>springboot的核心功能与使用优点<br>    核心功能：</p>
+</code></pre><p>springboot和spring的区别:</p>
+<pre><code>java在集成spring等框架需要作出大量的配置,开发效率低,繁琐.所以官方提出 spring boot的核心思想:习惯优于配置.可以快速创建开发基于spring框架的项目.或者支持可以不用或很少的spring配置即可.
+</code></pre><p>springboot的核心功能与使用优点<br>    核心功能：</p>
 <pre><code>    独立运行Spring项目：
         Spring Boot 可以以jar 包的形式独立运行，运行一个Spring Boot 项目只需通过java –jarxx.jar 来运行。
     内嵌servlet容器：
@@ -242,6 +247,53 @@ session的数据信息存放在服务器上。
     开发部署方便
 </code></pre><p>application.properties配置文件：</p>
 <pre><code>application.properties为boot项目中的一个系统自带的全局属性配置文件
+</code></pre><p>Spring boot 的优点：</p>
+<pre><code>1、独立运行（内置servlet容器）
+2、简化配置（starter和默认的约定配置）
+3、自动配置（auto config；@Conditional）
+4、无代码生成和xml配置（properties or yml）
+5、应用监控(metrics接口 -&gt; 写入到tsdb时序数据库)
+6、上手容易
+</code></pre><p>Spring Boot的核心配置文件有哪几个？</p>
+<pre><code>application和bootstrap两个
+</code></pre><p>Spring boot的核心注解是那个: </p>
+<pre><code>@SpringBootApplication
+</code></pre><p>开启Spring Boot的核心注解是那个(starter)</p>
+<p>运行springboot有几种方式(maven和main方法)</p>
+<p>Spring Boot自动配置原理是什么？（Condition,ConditionClass）</p>
+<p>Spring boot有哪几种读取配置的方式：</p>
+<pre><code>@vaule
+@ConfigurationProperties(prefix=&quot;spring&quot;)
+@PropertySource(不能读取yml配置)
+</code></pre><p>SpringBoot 支持哪些日志框架？推荐和默认的日志框架：</p>
+<pre><code>默认logback框架
+推荐log4j2
+</code></pre><p>spring常用注解：</p>
+<pre><code>@SpringBootApplication，springboot的核心注解，用于开启自动配置，等效于@Configuraion、@ComponentScan和@EnableAutoConfiguration三个注解一起使用。
+@RestController,表示是servlet控制器，是@Controller和ResponseBody的注解合集，支持restful风格的写法，请求的返回的数据格式为json，适合专门做后台服务接口开发，在4.0版本前不支持该注解。
+@RequestMapping：提供路由信息，负责URL到Controller中的具体函数的映射。
+@ResponseBody: 将请求返回的结果为json形式。
+@Controller：用于定义控制器类。
+@Service: 表示Service层。
+@Repository: 表示数据关系映射层。
+@ComponentScan: 将该类自动发现扫描组件。
+@Bean: 用在方法上来生成一个bean示例，交给Spring容器托管。
+@Component: 表示组件。
+@Configuration: 相当于传统的xml配置文件，如果有些第三方库需要用到xml文件，建议仍然通过@Configuration类作为项目的配置主类——可以使用@ImportResource注解加载xml配置文件。
+@EnableAutoConfiguration: Spring Boot自动配置（auto-configuration）：尝试根据你添加的jar依赖自动配置你的Spring应用。
+@ConfigurationProperties: 将配置文件的内容封装成实体类对应的属性。可以把@ConfigurationProperties直接定义在@Bean的注解上，此时bean实体类就不用@Component和@ConfigurationProperties注解了。
+@Profiles: 提供了一种隔离应用程序配置的方式，并让这些配置只能在特定的环境下生效。
+@Autowired: 自动导入依赖的bean。
+@Qualifier: 当有多个同一类型的Bean时，可以用@Qualifier(“name”)来指定。与@Autowired配合使用。@Qualifier限定描述符除了能根据名字进行注入。
+@Resource: 默认byName，与@Autowired干类似的事，找不到再根据类型找，使用@Resource(name=”name”,type=”type”)
+@Import: 用来导入其他配置类。
+@ImportResource：用来加载xml配置文件。
+@RequestBody: 处理post、put等请求时数据解析。
+@RequestParam: 获取请求参数，用在方法的参数前。
+@PathVariable: 路径变量。
+@Value: 获取配置application文件的内容。
+@ControllerAdvice：包含@Component。可以被扫描到。统一处理异常。
+@ExceptionHandler（Exception.class）：用在方法上面表示遇到这个异常就执行以下方法。
 </code></pre>
       
 
