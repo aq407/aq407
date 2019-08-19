@@ -176,7 +176,11 @@
 <p>·spring bean生命周期：</p>
 <pre><code>BeanNameAware ——&gt;  BeanFactoryAware ——&gt; BeanPostProcessor ——&gt;  InitializingBean、init-method ——&gt;  DisposableBean、destroy-method
 </code></pre><p>实例化bean对象(通过构造方法或者工厂方法)<br>设置对象属性(setter等)（依赖注入）<br>如果Bean实现了BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。（和下面的一条均属于检查Aware接口）<br>如果Bean实现了BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身<br>将Bean实例传递给Bean的前置处理器的postProcessBeforeInitialization(Object bean, String beanname)方法<br>调用Bean的初始化方法<br>将Bean实例传递给Bean的后置处理器的postProcessAfterInitialization(Object bean, String beanname)方法<br>使用Bean<br>容器关闭之前，调用Bean的销毁方法</p>
-<p>·SpringMVC的处理流程：</p>
+<p>spring对bean的管理：</p>
+<pre><code>1.BeanFactory: BeanFactory采用了工厂设计模式，负责读取bean配置文档，管理bean的加载，实例化，维护bean之间的依赖关系，负责bean的生命周期。 
+2.ApplicationContext:除了提供上述BeanFactory所能提供的功能之外，还提供了更完整的框架功能：国际化支持、aop、事务等。 
+3.BeanFactory在解析配置文件时并不会初始化对象,只有在使用对象getBean()才会对该对象进行初始化，而ApplicationContext在解析配置文件时对配置文件中的所有对象都初始化了,getBean()方法只是获取对象的过程。
+</code></pre><p>·SpringMVC的处理流程：</p>
 <pre><code>1、url请求
 2、查找映射处理()
 3、返回被映射的bean
@@ -214,7 +218,31 @@ Servlet 通过调用 destroy() 方法终止（摧毁）。
 </code></pre><p>java不支持多继承：</p>
 <pre><code>每个类都只能继承一个类，但是可以实现多个接口。
 java实现多继承有两种方式，一是接口，二是内部类
-</code></pre><p>String, StringBuffer StringBuilder的区别：</p>
+</code></pre><p>jdk1.7和1.8的hashmap有什么不同:</p>
+<pre><code>JDK1.7用的是头插法，而JDK1.8及之后使用的都是尾插法，引入红黑树结构
+若桶中链表元素个数大于等于8时，链表转换成树结构；若桶中链表元素个数小于等于6时，树结构还原成链表
+扩容后数据存储位置的计算方式也不一样
+</code></pre><p>java各种集合的区别比如Hashmap、inkedHashMap之类的：</p>
+<pre><code>HashMap使用的是数组＋单链表的数据结构
+LinkedHashMap使用的是数组＋双向链表数据结构。 
+</code></pre><p>多线程的线程池是如何工作的顶层代码和原理：</p>
+<p>本地线程thredlocal的实现原理</p>
+<p>spring boot 和springmvc的区别：</p>
+<pre><code>Spring MVC 是基于Spring的一个MVC框架；
+Spring Boot 是基于Spring4的条件注册的一套快速开发整合包
+
+即减少配置文件xml的编写
+</code></pre><p>jvm的三种回收方式有什么不同比如CMS和G1有什么区别</p>
+<p>数据库优化时候索引有哪几种如何选择索引：</p>
+<pre><code>普通索引
+唯一索引
+全文索引（FULLTEXT）
+单列索引、多列索引
+组合索引（最左前缀）
+聚集索引
+</code></pre><p>多人同时抢购一个库存的商品改怎么处理(分布式事务)</p>
+<p>如何处理高并发就是请求数量大于本地线程数量的时候不出错</p>
+<p>String, StringBuffer StringBuilder的区别：</p>
 <pre><code>String的长度是不可改变的
 StringBuffer的长度是可变的，线程安全
 如果一个字符串经常要改变就一定不要用String，否则会创建许多无用的对象出来
