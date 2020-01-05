@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ip路由聚合与子网划分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/ip路由聚合与子网划分/">ip路由聚合与子网划分</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/17/ip路由聚合与子网划分/" class="archive-article-date">
+  	<time datetime="2019-03-16T16:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="CIDR地址规划"><a href="#CIDR地址规划" class="headerlink" title="CIDR地址规划"></a>CIDR地址规划</h2><p>使用各种长度的“网络前缀” 来代替分类地址中的网络号和子网号，采用”最大前缀匹配法”<br>计算此目的地址的网络</p>
+<p><font color="#dd0000"> IP地址::={&lt;网络前缀&gt;，&lt;主机号&gt;}</font></p>
+<p>使用“斜线记法”，又称CIDR记法</p>
+<p>一个CIDR地址块可以表示很多地址，所以在路由表中就是利用CIDR地址块来查找目的网络，这种地址的聚合常称为路由聚合，也称为构成超网</p>
+<h2 id="IP地址聚合"><a href="#IP地址聚合" class="headerlink" title="IP地址聚合"></a>IP地址聚合</h2><p>子网掩码:保留主机为不能全为1和0</p>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p>可用ip地址的计算: 2^主机位-2<br>子网掩码的划分: 2^x &gt;=子网可容纳主机数+2 即主机位为X，网络位=32-x</p>
+<p>可以ip地址段划分:第一个:网络地址+1，最后一位：将第一个ip地址的主机位置一</p>
+<h2 id="防火墙安装与配置"><a href="#防火墙安装与配置" class="headerlink" title="防火墙安装与配置"></a>防火墙安装与配置</h2><p>串接一种设备能建通路由器之间的流量，写TAP<br>问串接一种设备能提供安全保护，一般是IPS<br>问防火墙访问外网设置，分别填nat和global<br>要求允许内网FTP向外网提供服务的命令时:fixup<br>若需要为内网的一个服务器配置一个公网IP地址:static</p>
+<p>-</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/17/ip路由聚合与子网划分/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Sniffer抓包分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -841,7 +912,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 aq407
+    		&copy; 2020 aq407
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
